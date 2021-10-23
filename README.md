@@ -1,3 +1,8 @@
+# MIDI IMPLEMENTATION - WORK IN PROGRESS - NOT OPERATIONNAL
+### Progress: 
+Removed serial communication in preparation to MIDI implementation. 
+
+
 # OpenThereminV4
 Open Source Theremin Instrument
 

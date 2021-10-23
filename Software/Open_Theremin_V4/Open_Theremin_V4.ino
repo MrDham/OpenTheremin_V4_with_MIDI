@@ -27,9 +27,7 @@ Building the code
 =================
 build.h contains #defines that control the compilation of the code
 
-ENABLE_SERIAL - if non-0, the build will include code to write the detected
-           pitch to the serial connection every 100 milliseconds. Set serial
-           receive baud to 115200
+
 
 ENABLE_CV - if non-0, emit cv output on pin 6 (EXPERIMENTAL!)
            

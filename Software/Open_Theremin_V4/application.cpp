@@ -30,9 +30,7 @@ Application::Application()
 
 void Application::setup()
 {
-#if SERIAL_ENABLED
-  Serial.begin(Application::BAUD);
-#endif
+
 
   HW_LED1_ON;
   HW_LED2_OFF;
@@ -245,14 +243,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     _state = PLAYING;
   };
 
-#if SERIAL_ENABLED
-  if (timerExpired(TICKS_100_MILLIS))
-  {
-    resetTimer();
-    Serial.write(pitch & 0xff); // Send char on serial (if used)
-    Serial.write((pitch >> 8) & 0xff);
-  }
-#endif
+
 
   if (pitchValueAvailable)
   { // If capture event
@@ -363,8 +354,6 @@ void Application::calibrate_pitch()
   static long pitchfn1 = 0;
   static long pitchfn = 0;
 
-  Serial.begin(115200);
-  Serial.println("\nPITCH CALIBRATION\n");
 
   HW_LED1_ON;
   HW_LED2_ON;
@@ -374,8 +363,6 @@ void Application::calibrate_pitch()
   SPImcpDACinit();
 
   qMeasurement = GetQMeasurement(); // Measure Arudino clock frequency
-  Serial.print("Arudino Freq: ");
-  Serial.println(qMeasurement);
 
   q0 = (16000000 / qMeasurement * 500000); //Calculated set frequency based on Arudino clock frequency
 
@@ -384,8 +371,6 @@ void Application::calibrate_pitch()
 
   pitchfn = q0 - PitchFreqOffset; // Add offset calue to set frequency
 
-  Serial.print("\nPitch Set Frequency: ");
-  Serial.println(pitchfn);
 
   SPImcpDAC2Bsend(1600);
 
@@ -397,10 +382,7 @@ void Application::calibrate_pitch()
   delay(100);
   pitchfn1 = GetPitchMeasurement();
 
-  Serial.print("Frequency tuning range: ");
-  Serial.print(pitchfn0);
-  Serial.print(" to ");
-  Serial.println(pitchfn1);
+
 
   while (abs(pitchfn0 - pitchfn1) > CalibrationTolerance)
   { // max allowed pitch frequency offset
@@ -415,14 +397,7 @@ void Application::calibrate_pitch()
 
     pitchXn2 = pitchXn1 - ((pitchXn1 - pitchXn0) * pitchfn1) / (pitchfn1 - pitchfn0); // new DAC value
 
-    Serial.print("\nDAC value L: ");
-    Serial.print(pitchXn0);
-    Serial.print(" Freq L: ");
-    Serial.println(pitchfn0);
-    Serial.print("DAC value H: ");
-    Serial.print(pitchXn1);
-    Serial.print(" Freq H: ");
-    Serial.println(pitchfn1);
+
 
     pitchXn0 = pitchXn1;
     pitchXn1 = pitchXn2;
@@ -445,8 +420,6 @@ void Application::calibrate_volume()
   static long volumefn1 = 0;
   static long volumefn = 0;
 
-  Serial.begin(115200);
-  Serial.println("\nVOLUME CALIBRATION");
 
   InitialiseVolumeMeasurement();
   interrupts();
@@ -458,8 +431,6 @@ void Application::calibrate_volume()
   q0 = (16000000 / qMeasurement * 460765);
   volumefn = q0 - VolumeFreqOffset;
 
-  Serial.print("\nVolume Set Frequency: ");
-  Serial.println(volumefn);
 
   SPImcpDAC2Bsend(volumeXn0);
   delay_NOP(44316); //44316=100ms
@@ -471,10 +442,6 @@ void Application::calibrate_volume()
   delay_NOP(44316); //44316=100ms
   volumefn1 = GetVolumeMeasurement();
 
-  Serial.print("Frequency tuning range: ");
-  Serial.print(volumefn0);
-  Serial.print(" to ");
-  Serial.println(volumefn1);
 
   while (abs(volumefn0 - volumefn1) > CalibrationTolerance)
   {
@@ -489,14 +456,7 @@ void Application::calibrate_volume()
 
     volumeXn2 = volumeXn1 - ((volumeXn1 - volumeXn0) * volumefn1) / (volumefn1 - volumefn0); // calculate new DAC value
 
-    Serial.print("\nDAC value L: ");
-    Serial.print(volumeXn0);
-    Serial.print(" Freq L: ");
-    Serial.println(volumefn0);
-    Serial.print("DAC value H: ");
-    Serial.print(volumeXn1);
-    Serial.print(" Freq H: ");
-    Serial.println(volumefn1);
+
 
     volumeXn0 = volumeXn1;
     volumeXn1 = volumeXn2;
@@ -508,7 +468,7 @@ void Application::calibrate_volume()
   HW_LED1_ON;
   HW_LED2_OFF;
 
-  Serial.println("\nCALIBRATION COMPLETED\n");
+
 }
 
 void Application::hzToAddVal(float hz)

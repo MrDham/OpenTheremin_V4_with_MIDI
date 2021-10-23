@@ -32,9 +32,7 @@ class Application {
 
 
     
-#if SERIAL_ENABLED    
-    static const int BAUD = 115200;
-#endif
+
 
     AppState _state;
     AppMode  _mode;

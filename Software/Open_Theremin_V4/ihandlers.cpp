@@ -141,6 +141,8 @@ ISR(INT1_vect)
   pointer += vPointerIncrement; // increment table pointer
 
   incrementTimer(); // update 32us timer
+  incrementMidiTimer();           // update 32us miditimer
+
 
   if (PC_STATE)
     debounce_p++;

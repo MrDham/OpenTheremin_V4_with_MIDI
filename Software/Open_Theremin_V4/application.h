@@ -7,6 +7,7 @@
 
 enum AppState {CALIBRATING = 0, PLAYING};
 enum AppMode  {MUTE = 0, NORMAL};
+enum AppMidiState {MIDI_SILENT = 0, MIDI_PLAYING, MIDI_STOP, MIDI_MUTE};
 
 class Application {
   public:
@@ -36,6 +37,7 @@ class Application {
 
     AppState _state;
     AppMode  _mode;
+    AppMidiState _midistate;
         
     void calibrate();
     void calibrate_pitch();
@@ -62,6 +64,15 @@ class Application {
     void playCalibratingCountdownSound();
     void playModeSettingSound();
     void delay_NOP(unsigned long time);
+
+    void midi_setup();
+    void midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2, uint8_t midi_value);
+    void midi_application ();
+    void calculate_note_bend ();
+    void init_parameters ();
+    void set_parameters ();
+
+
 };
 
 #endif // _APPLICATION_H

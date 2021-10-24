@@ -1,6 +1,7 @@
 # MIDI IMPLEMENTATION - WORK IN PROGRESS - NOT OPERATIONNAL
 ### Progress: 
 Removed serial communication in preparation to MIDI implementation. 
+Ported MIDI from Open Theremin V3 with MIDI V2.6 Compile with no error but not tested.
 
 
 # OpenThereminV4

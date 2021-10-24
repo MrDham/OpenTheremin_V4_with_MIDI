@@ -2,6 +2,7 @@
 #define _TIMER_H
 
 extern volatile uint16_t timer;
+extern volatile uint16_t midi_timer;
 
 inline uint16_t millisToTicks(uint16_t milliseconds) {
   return milliseconds * (1000.0f/32);
@@ -13,6 +14,10 @@ inline void resetTimer() {
 
 inline void incrementTimer() {
   timer++;
+}
+
+inline void incrementMidiTimer() {
+  midi_timer++;
 }
 
 inline bool timerExpired(uint16_t ticks) {

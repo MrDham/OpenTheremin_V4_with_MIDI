@@ -1,4 +1,6 @@
 # MIDI IMPLEMENTATION - WORK IN PROGRESS - NOT TESTED AT ALL
+This repo includes software and hardware design. Anyway just the software part in modified here. 
+
 ### Progress: 
 Removed serial communication in preparation to MIDI implementation. 
 
@@ -27,6 +29,7 @@ http://www.gaudi.ch/OpenTheremin/
   
    //Serial.begin(31250); // Baudrate for real midi. Use din connection https://www.arduino.cc/en/Tutorial/Midi or HIDUINO https://github.com/ddiakopoulos/hiduino
 
+   NOTE: If you look carefully at the schematic, you may notice that the serial controler can no more be reprogramed into a MIDI controler.  Anyway, I kept the reference to HIDUINO here, just in case that some users want to add some additional material to make a real MIDI USB interface. 
    
 4. Selecting the correct usb port on Tools -> Serial Port
 5. Select the correct arduino board from Tools -> Board
@@ -121,4 +124,4 @@ CV GATE processing from antennas to output jack is exactly the same as in open t
 
 CALIBRATION:
 
-This device runs normal calibration of antennas after pushing button for 3 seconds as per initial project
+This device runs normal calibration of antennas after pushing button for a few second as per initial project

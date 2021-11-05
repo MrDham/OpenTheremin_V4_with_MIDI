@@ -1,4 +1,4 @@
-# MIDI IMPLEMENTATION - WORK IN PROGRESS - NOT TESTED AT ALL
+# MIDI IMPLEMENTATION - WORK IN PROGRESS - NEEDS TO BE TESTED
 This repo includes software and hardware design. Anyway just the software part in modified here. 
 
 ### Progress: 

@@ -1,5 +1,5 @@
 # MIDI IMPLEMENTATION - WORK IN PROGRESS - NEEDS TO BE TESTED
-This repo includes software and hardware design. Anyway just the software part in modified here. 
+This repo includes software and hardware design. Anyway just the software part is modified here. 
 
 ### Progress: 
 Removed serial communication in preparation to MIDI implementation. 

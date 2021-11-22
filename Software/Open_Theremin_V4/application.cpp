@@ -201,7 +201,6 @@ void Application::loop()
   uint16_t volumePotValue = 0;
   uint16_t pitchPotValue = 0;
 
-  uint16_t tmpVolume;
   int16_t tmpPitch;
   uint8_t tmpOct;
   uint16_t tmpLog;
@@ -329,14 +328,14 @@ mloop: // Main loop avoiding the GCC "optimization"
     // Limit and set volume value
     vol_v = min(vol_v, 4095);
     vol_v = max(vol_v, 0);
-    tmpVolume = vol_v >> 4;
+    loop_hand_pos  = vol_v >> 4;
 
     // Most synthesizers "exponentiate" the volume CV themselves, thus send the "raw" volume for CV:
     volCV = vol_v;
     volumeCVAvailable = true;
 
     // Give vScaledVolume a pseudo-exponential characteristic:
-    vScaledVolume = tmpVolume * (tmpVolume + 2);
+    vScaledVolume = loop_hand_pos  * (loop_hand_pos  + 2);
 
     volumeValueAvailable = false;
   }

@@ -424,9 +424,9 @@ void Application::calibrate_pitch()
     pitchfn1 = GetPitchMeasurement() - pitchfn;
 
     pitchXn2 = pitchXn1 - ((pitchXn1 - pitchXn0) * pitchfn1) / (pitchfn1 - pitchfn0); // new DAC value
-
-
-
+    
+    delay(100);
+    
     pitchXn0 = pitchXn1;
     pitchXn1 = pitchXn2;
 
@@ -484,8 +484,8 @@ void Application::calibrate_volume()
 
     volumeXn2 = volumeXn1 - ((volumeXn1 - volumeXn0) * volumefn1) / (volumefn1 - volumefn0); // calculate new DAC value
 
-
-
+    delay_NOP(44316); //44316=100ms
+    
     volumeXn0 = volumeXn1;
     volumeXn1 = volumeXn2;
     HW_LED1_TOGGLE;

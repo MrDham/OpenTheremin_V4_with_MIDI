@@ -3,7 +3,9 @@ This repo includes software and hardware design. Anyway just the software part i
 
 ### Progress: 
 Removed serial communication in preparation to MIDI implementation. 
+
 Ported MIDI from Open Theremin V3 with MIDI V2.6. 
+
 Reached Beta status. Thanks to @JuliusKB (https://github.com/JuliusKB) for test and Trial. 
 
 

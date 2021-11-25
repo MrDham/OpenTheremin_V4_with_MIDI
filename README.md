@@ -1,10 +1,10 @@
-# MIDI IMPLEMENTATION - WORK IN PROGRESS - NEEDS TO BE TESTED
+# MIDI IMPLEMENTATION - Status : Beta
 This repo includes software and hardware design. Anyway just the software part is modified here. 
 
 ### Progress: 
 Removed serial communication in preparation to MIDI implementation. 
-
-Ported MIDI from Open Theremin V3 with MIDI V2.6. Compile with no error but not tested.
+Ported MIDI from Open Theremin V3 with MIDI V2.6. 
+Reached Beta status. Thanks to @JuliusKB (https://github.com/JuliusKB) for test and Trial. 
 
 
 # OpenThereminV4

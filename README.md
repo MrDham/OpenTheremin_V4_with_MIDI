@@ -1,4 +1,8 @@
-# MIDI IMPLEMENTATION - Status : Beta - Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
+# MIDI IMPLEMENTATION - Status : Beta 
+
+### Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
+
+
 This repo includes software and hardware design. Anyway just the software part is modified here. 
 
 ### Progress: 

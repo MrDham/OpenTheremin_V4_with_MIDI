@@ -31,7 +31,9 @@ class Application {
     static const int16_t WAVE_SELECT_POT = 7;
     static const int16_t REGISTER_SELECT_POT = 6;
 
-
+    int16_t pitch_p = -1; 
+    int32_t vol_p = -1;
+    bool gate_p = false;
     
 
 

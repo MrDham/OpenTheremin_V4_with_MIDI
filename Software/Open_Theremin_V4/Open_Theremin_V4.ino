@@ -1,7 +1,7 @@
 /*
- *  Open.Theremin control software for Arduino UNO
- *  Version 3.1
- *  Copyright (C) 2010-2020 by Urs Gaudenz
+ *  Open.Theremin with MIDI control software for Arduino UNO
+ *  Version Beta 0.3 (based on Open Theremin V4 4.0.1 Copyright (C) 2010-2020 by Urs Gaudenz)
+ *
  *
  *  Open.Theremin control software is free software: you can redistribute it and/or
  *  modify it under the terms of the GNU General Public License as published
@@ -29,7 +29,9 @@ build.h contains #defines that control the compilation of the code
 
 
 
-ENABLE_CV - if non-0, emit cv output on pin 6 (EXPERIMENTAL!)
+CV_LOG - if non-0, the pitch CV output will follow the Moog/Roland standard 
+          of logarithmic 1V/Octave, else it will follow the linear Korg/Yamaha 
+          standard with 819Hz/V
            
 Structure of the code
 =====================

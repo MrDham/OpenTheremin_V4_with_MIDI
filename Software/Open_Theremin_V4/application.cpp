@@ -202,6 +202,7 @@ void Application::loop()
   uint16_t volumePotValue = 0;
   uint16_t pitchPotValue = 0;
 
+  uint16_t tmpVolume;
   int16_t tmpPitch;
   uint16_t tmpOct;
   uint16_t tmpLog;
@@ -346,7 +347,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     // Give vScaledVolume a pseudo-exponential characteristic:
     vScaledVolume = loop_hand_pos  * (loop_hand_pos  + 2);
 
-    tmpVolume = tmpVolume >> 1;
+    tmpVolume = loop_hand_pos >> 1;
 
     if (!gate_p && (tmpVolume >= GATE_ON))
     {

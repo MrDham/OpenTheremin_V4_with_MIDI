@@ -12,6 +12,8 @@ Ported MIDI from Open Theremin V3 with MIDI V2.6.
 
 Reached Beta status. Thanks to @JuliusKB (https://github.com/JuliusKB) for test and Trial. 
 
+Re-synchronised with V4.0.1 from  GaudiLabs/OpenThereminV4 
+
 
 # OpenThereminV4
 Open Source Theremin Instrument

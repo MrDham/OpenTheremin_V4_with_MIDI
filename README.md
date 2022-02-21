@@ -124,11 +124,11 @@ Sends ALL NOTE OFF on selected channel and stay in mute until it is pushed again
 
 AUDIO: 
 
-Audio processing from antennas to output jack, including volume and pitch pots, LEDs and button functions, is exactly the same as in open theremin V4.  You can play the Audio and the MIDI side by side. 
+Audio processing from antennas to output jack, including volume and pitch pots, LEDs and button functions, is exactly the same as in open theremin V4.  You can play the Audio and control MIDI devices side by side. 
 
 CV GATE: 
 
-CV GATE processing from antennas to output jack is exactly the same as in open theremin V4.  You can play the Audio and the MIDI side by side. 
+CV GATE processing from antennas to output jack is exactly the same as in open theremin V4.  You can control your analog devices and MIDI devices side by side. 
 
 CALIBRATION:
 

@@ -1040,6 +1040,7 @@ void Application::set_parameters ()
       
           
     default:
+      // Loop antenna cc
       data_steps = data_pot_value >> 7;
       switch (data_steps)
       {

@@ -66,6 +66,9 @@ static double rod_cc_scale = 1;
 static uint16_t data_pot_value = 0; 
 static uint16_t old_data_pot_value = 0; 
 
+static uint16_t param_pot_value = 0; 
+static uint16_t old_param_pot_value = 0; 
+
 Application::Application()
   : _state(PLAYING),
     _mode(NORMAL) {};
@@ -858,14 +861,45 @@ void Application::init_parameters ()
 
 void Application::set_parameters ()
 {
-  uint16_t param_pot_value = 0;
- 
   param_pot_value = analogRead(REGISTER_SELECT_POT);
   data_pot_value = analogRead(WAVE_SELECT_POT);
 
-  // If data pot moved
-  if (abs((int32_t)data_pot_value - (int32_t)old_data_pot_value) >= 8)
+  // If parameter pot moved
+  if (abs((int32_t)param_pot_value - (int32_t)old_param_pot_value) >= 8)
   {
+    // Blink the LED relatively to pot position
+    resetTimer();
+    if (((param_pot_value >> 7) % 2) == 0)
+    {
+      HW_LED1_OFF;
+      HW_LED2_OFF;
+    }
+    else
+    {
+      HW_LED1_ON;
+      HW_LED2_ON;
+    }
+
+    // Memorize data pot value to monitor changes
+    old_param_pot_value = param_pot_value;
+  }
+  
+  // Else If data pot moved
+  else if (abs((int32_t)data_pot_value - (int32_t)old_data_pot_value) >= 8)
+  {
+    // Blink the LED relatively to pot position
+    resetTimer();
+    if (((data_pot_value >> 7) % 2) == 0)
+    {
+      HW_LED1_OFF;
+      HW_LED2_OFF;
+    }
+    else
+    {
+      HW_LED1_ON;
+      HW_LED2_ON;
+    }
+    
     // Modify selected parameter
     switch (param_pot_value >> 7)
     {
@@ -1046,5 +1080,23 @@ void Application::set_parameters ()
 
     // Memorize data pot value to monitor changes
     old_data_pot_value = data_pot_value;
+  }
+
+  else
+  {
+    if (timerExpired(65000))
+    //restore LED status
+    {
+      if (_mode == NORMAL)
+      {
+        HW_LED1_ON;
+        HW_LED2_OFF;
+      }
+      else
+      {
+        HW_LED1_OFF;
+        HW_LED2_ON;
+      }
+    }
   }
 }

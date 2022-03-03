@@ -861,6 +861,8 @@ void Application::init_parameters ()
 
 void Application::set_parameters ()
 {
+  uint16_t data_steps;
+  
   param_pot_value = analogRead(REGISTER_SELECT_POT);
   data_pot_value = analogRead(WAVE_SELECT_POT);
 
@@ -887,25 +889,13 @@ void Application::set_parameters ()
   // Else If data pot moved
   else if (abs((int32_t)data_pot_value - (int32_t)old_data_pot_value) >= 8)
   {
-    // Blink the LED relatively to pot position
-    resetTimer();
-    if (((data_pot_value >> 7) % 2) == 0)
-    {
-      HW_LED1_OFF;
-      HW_LED2_OFF;
-    }
-    else
-    {
-      HW_LED1_ON;
-      HW_LED2_ON;
-    }
-    
     // Modify selected parameter
     switch (param_pot_value >> 7)
     {
     case 0:
       // Transpose
-      switch (data_pot_value >> 8)
+      data_steps = data_pot_value >> 8;
+      switch (data_steps)
       {
       case 0:
         registerValue=3; // -1 Octave
@@ -922,12 +912,14 @@ void Application::set_parameters ()
       
     case 1:
       // Waveform
-      vWavetableSelector=data_pot_value>>7;
+      data_steps = data_pot_value >> 7;
+      vWavetableSelector = data_steps;
       break;
       
     case 2:
       // Channel
-      midi_channel = (uint8_t)((data_pot_value >> 6) & 0x000F);
+      data_steps = data_pot_value >> 6;
+      midi_channel = (uint8_t)(data_steps & 0x000F);
       if (old_midi_channel != midi_channel)
       {
         // Send all note off to avoid stuck notes
@@ -938,20 +930,18 @@ void Application::set_parameters ()
         
     case 3:
       // Rod antenna mode
-      switch (data_pot_value >> 7)
+      data_steps = data_pot_value >> 8;
+      switch (data_steps)
       {
       case 0:
-      case 1:
         flag_legato_on = 0;
         flag_pitch_bend_on = 0;
         break; 
-      case 2:
-      case 3:
+      case 1:
         flag_legato_on = 0;
         flag_pitch_bend_on = 1;
         break; 
-      case 4:
-      case 5:
+      case 2:
         flag_legato_on = 1;
         flag_pitch_bend_on = 0;
         break; 
@@ -963,8 +953,9 @@ void Application::set_parameters ()
       break;
       
     case 4:
-      // Pitch bend range
-      switch (data_pot_value >> 7)
+      // Pitch-Bend range
+      data_steps = data_pot_value >> 7;
+      switch (data_steps)
       {
       case 0:
         midi_bend_range = 1; 
@@ -995,12 +986,14 @@ void Application::set_parameters ()
       
     case 5:
       // Volume trigger
+      data_steps = data_pot_value >> 8;
       midi_volume_trigger = (uint8_t)((data_pot_value >> 3) & 0x007F);
       break;
       
     case 6:
       //Rod antenna cc
-      switch (data_pot_value >> 7)
+      data_steps = data_pot_value >> 7;
+      switch (data_steps)
       {
       case 0:
         rod_midi_cc = 255; // Nothing
@@ -1047,8 +1040,8 @@ void Application::set_parameters ()
       
           
     default:
-      // Loop antenna cc
-      switch (data_pot_value >> 7)
+      data_steps = data_pot_value >> 7;
+      switch (data_steps)
       {
       case 0:
         loop_midi_cc = 1; // Modulation
@@ -1077,6 +1070,20 @@ void Application::set_parameters ()
       }
       break;
     }
+
+    // Blink the LED relatively to pot position
+    resetTimer();
+    if ((data_steps % 2) == 0)
+    {
+      HW_LED1_OFF;
+      HW_LED2_OFF;
+    }
+    else
+    {
+      HW_LED1_ON;
+      HW_LED2_ON;
+    }
+
 
     // Memorize data pot value to monitor changes
     old_data_pot_value = data_pot_value;

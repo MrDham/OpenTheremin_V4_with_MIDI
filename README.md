@@ -1,4 +1,4 @@
-# MIDI IMPLEMENTATION - Status : Beta 
+# MIDI IMPLEMENTATION - Status : Beta 0.4 - Considering official release... 
 
 ### Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
 
@@ -13,6 +13,12 @@ Ported MIDI from Open Theremin V3 with MIDI V2.6.
 Reached Beta status. Thanks to @JuliusKB (https://github.com/JuliusKB) for test and Trial. 
 
 Re-synchronised with V4.0.1 from  GaudiLabs/OpenThereminV4 
+
+Implemented feature #8:
+Select a Parameter and move "Parameter's Value" to change corresponding setting.
+While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status.
+
+Beta_0.4 1st release tested by me (MrDham). 
 
 
 # OpenThereminV4

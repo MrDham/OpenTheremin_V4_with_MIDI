@@ -105,8 +105,8 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
 
  6. Volume trigger / Velocity sensitivity (how fast moves the volume loop's hand): 128 positions (0 to 127)
 
-     Tweakable parameter (in application.cpp): Changing this to your taste may require some test and trial.
-     "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
+     Tweakable parameter in application.cpp: "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
+     Changing this to your taste may require some test and trial.
      
  7. Rod antenna MIDI CC: 8 positions 
     (None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff) 

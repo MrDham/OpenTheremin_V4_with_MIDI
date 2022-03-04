@@ -104,6 +104,7 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
      Maximum setting possible is recomended.
 
  6. Volume trigger / Velocity sensitivity (how fast moves the volume loop's hand): 128 positions (0 to 127)
+
      Tweakable parameter (in application.cpp): Changing this to your taste may require some test and trial.
      "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
      

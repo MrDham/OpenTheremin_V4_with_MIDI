@@ -105,8 +105,14 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
     For 14 Bit CC messages, MSB and LSB are always sent together and in the following order: MSB (1st), LSB (2nd) as per MIDI 1.0 Standard. 
     The receiver can bufferize MSB to synchronize it with the LSB. 
     
+    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Rod antenna. 
+    You can aslo scale the CC sensivity to hand movement.
+    
  8. Loop antenna MIDI CC: 8 positions 
     (1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser)
+    
+    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna. 
+   
 
 Select a Parameter and move "Parameter's Value" to change corresponding setting. 
 

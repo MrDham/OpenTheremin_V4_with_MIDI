@@ -91,14 +91,22 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
   "Timbre" pot becomes "Parameter's Value" and have a variable number of positions depending on selected parameter: 
  
  1. Register: 3 positions (-1 Octave, center, +1 Octave) as in original Open Theremin V3 (version V3.1)
+
  2. Timbre: 8 positions as in original Open Theremin V3
+
  3. Channel: 16 positions (channel 1 to 16)
+
  4. Rod antenna mode: 4 positions 
      (Legato off/Pitch Bend off, Legato off/Pitch Bend on, Legato on/Pitch Bend off, Legato on/Pitch Bend on)
+
  5. Pitch bend range: 8 positions (1, 2, 4, 5, 7, 12, 24, 48 Semitones). 
      For classical glissando and in order to have same note on audio and MIDI, use exactly same pitch bend range on your synth. 
      Maximum setting possible is recomended.
+
  6. Volume trigger / Velocity sensitivity (how fast moves the volume loop's hand): 128 positions (0 to 127)
+     Tweakable parameter (in application.cpp): Changing this to your taste may require some test and trial.
+     "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
+     
  7. Rod antenna MIDI CC: 8 positions 
     (None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff) 
     

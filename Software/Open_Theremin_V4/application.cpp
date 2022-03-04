@@ -894,18 +894,20 @@ void Application::set_parameters ()
     {
     case 0:
       // Transpose
-      data_steps = data_pot_value >> 8;
-      switch (data_steps)
+      switch (data_pot_value >> 8)
       {
       case 0:
         registerValue=3; // -1 Octave
+        data_steps = 1;
         break; 
       case 1:
       case 2:
         registerValue=2; // Center
+        data_steps = 2;
         break; 
       default:
         registerValue=1; // +1 Octave 
+        data_steps = 3;
         break; 
       }
       break;

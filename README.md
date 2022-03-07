@@ -43,7 +43,12 @@ http://www.gaudi.ch/OpenTheremin/
    
    //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
 
-   NOTE: If you look carefully at the schematic, you may notice that the serial controler can no more be reprogramed into a MIDI controler.  Anyway, I kept the reference to HIDUINO here, just in case that some users want to add some additional material to make a real MIDI USB interface. 
+   NOTES: 
+   
+   * If you look carefully at the schematic, you may notice that the serial controler can no more be reprogramed into a MIDI controler.  
+   Anyway, I kept the reference to HIDUINO here, just in case that some users want to add some additional material to make a real MIDI USB interface. 
+   
+   * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 3.5 mm Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
    
 4. Selecting the correct usb port on Tools -> Serial Port
 5. Select the correct arduino board from Tools -> Board

@@ -48,7 +48,7 @@ http://www.gaudi.ch/OpenTheremin/
    * If you look carefully at the schematic, you may notice that the serial controler can no more be reprogramed into a MIDI controler.  
    Anyway, I kept the reference to HIDUINO here, just in case that some users want to add some additional material to make a real MIDI USB interface. 
    
-   * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 2.5 mm (or 3.5 mm) Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
+   * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 2.5 mm (recommanded) or 3.5 mm Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
    
 4. Selecting the correct usb port on Tools -> Serial Port
 5. Select the correct arduino board from Tools -> Board

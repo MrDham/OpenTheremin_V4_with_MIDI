@@ -1,25 +1,10 @@
-# MIDI IMPLEMENTATION - Status : Beta 0.4 - Considering official release... 
+# MIDI IMPLEMENTATION - V1.0
 
-### Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
+This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
+It is the first official version. 
 
-This repo includes software and hardware design. Anyway just the software part is modified here. 
-
-### Progress: 
-Removed serial communication in preparation to MIDI implementation. 
-
-Ported MIDI from Open Theremin V3 with MIDI V2.6. 
-
-Reached Beta status. Thanks to @JuliusKB (https://github.com/JuliusKB) for test and Trial. 
-
-Re-synchronised with V4.0.1 from  GaudiLabs/OpenThereminV4 
-
-Implemented feature #8:
-Select a Parameter and move "Parameter's Value" to change corresponding setting.
-While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status.
-
-Beta_0.4 1st release tested by me (MrDham). 
-
+It is synchronised with V4.0.1 from  GaudiLabs/OpenThereminV4. 
 
 # OpenThereminV4
 Open Source Theremin Instrument
@@ -95,9 +80,9 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
  "Register" pot becomes "Selected Parameter" pot and have 8 positions. 
   "Timbre" pot becomes "Parameter's Value" and have a variable number of positions depending on selected parameter: 
  
- 1. Register: 3 positions (-1 Octave, center, +1 Octave) as in original Open Theremin V3 (version V3.1)
+ 1. Register: 3 positions (-1 Octave, center, +1 Octave) as in original Open Theremin V4 
 
- 2. Timbre: 8 positions as in original Open Theremin V3
+ 2. Timbre: 8 positions as in original Open Theremin V4
 
  3. Channel: 16 positions (channel 1 to 16)
 
@@ -161,3 +146,12 @@ CV GATE processing from antennas to output jack is exactly the same as in open t
 CALIBRATION:
 
 This device runs normal calibration of antennas after pushing button for a few second as per initial project
+
+
+### Need some support ? Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
+
+### Aknowledgement
+All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !
+
+Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the developement phase. 
+

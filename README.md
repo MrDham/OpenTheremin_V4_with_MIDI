@@ -1,6 +1,6 @@
 # MIDI IMPLEMENTATION - V1.0
 
-This repo includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
+This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
 It is the first official version. 
 
@@ -151,7 +151,7 @@ This device runs normal calibration of antennas after pushing button for a few s
 ### Need some support ? Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
 
 ### Aknowledgement
-All this is based on the original project from Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thank you. 
+All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !
 
-Many thanks to @JuliusKB (https://github.com/JuliusKB) for test and trial during Beta phase. 
+Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the Beta phase. 
 

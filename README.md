@@ -153,5 +153,5 @@ This device runs normal calibration of antennas after pushing button for a few s
 ### Aknowledgement
 All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !
 
-Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the Beta phase. 
+Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the developement phase. 
 

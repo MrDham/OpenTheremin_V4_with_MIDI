@@ -148,7 +148,13 @@ CALIBRATION:
 This device runs normal calibration of antennas after pushing button for a few second as per initial project
 
 
-### Need some support ? Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
+### Need some support ? 
+Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
+
+### Any questions about MIDI and theremins ?
+The answer is probably there: https://app.box.com/s/s3yx1ro1v8ay061626wy09vmbo7do23q 
+
+
 
 ### Aknowledgement
 All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !

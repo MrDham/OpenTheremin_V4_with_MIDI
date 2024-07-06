@@ -1,10 +1,10 @@
-# MIDI IMPLEMENTATION - V1.1
+# MIDI IMPLEMENTATION - V1.2
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
-It is the first official version. 
+It is the an official version. 
 
-It is synchronised with V4.0.1 from  GaudiLabs/OpenThereminV4. 
+It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4. 
 
 # OpenThereminV4
 Open Source Theremin Instrument

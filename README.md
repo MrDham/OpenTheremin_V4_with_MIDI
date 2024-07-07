@@ -2,7 +2,7 @@
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
-It is the an official version. 
+It is an official version. 
 
 It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4. 
 

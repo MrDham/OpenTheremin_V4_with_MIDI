@@ -9,7 +9,8 @@
 #include "EEPROM.h"
 
 const AppMode AppModeValues[] = {MUTE, NORMAL};
-const int16_t CalibrationTolerance = 15;
+const int16_t PitchCalibrationTolerance = 15;
+const int16_t VolumeCalibrationTolerance = 21;
 const int16_t PitchFreqOffset = 700;
 const int16_t VolumeFreqOffset = 700;
 const int8_t HYST_VAL = 140;
@@ -462,7 +463,7 @@ void Application::calibrate_pitch()
 
 
   l_iteration_pitch = 0;
-  while ((abs(pitchfn0 - pitchfn1) > CalibrationTolerance) && (l_iteration_pitch < 12))
+  while ((abs(pitchfn0 - pitchfn1) > PitchCalibrationTolerance) && (l_iteration_pitch < 12))
   { // max allowed pitch frequency offset
 
     SPImcpDAC2Asend(pitchXn0);
@@ -524,7 +525,7 @@ void Application::calibrate_volume()
   volumefn1 = GetVolumeMeasurement();
 
   l_iteration_volume = 0;
-  while ((abs(volumefn0 - volumefn1) > CalibrationTolerance) && (l_iteration_volume < 12))
+  while ((abs(volumefn0 - volumefn1) > VolumeCalibrationTolerance) && (l_iteration_volume < 12))
   {
 
     SPImcpDAC2Bsend(volumeXn0);

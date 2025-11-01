@@ -510,7 +510,7 @@ void Application::calibrate_volume()
   volumeXn0 = 0;
   volumeXn1 = 4095;
 
-  q0 = (16000000 / qMeasurement * 460765);
+  q0 = (16000000 / qMeasurement * 460800);
   volumefn = q0 - VolumeFreqOffset;
 
 
@@ -1209,3 +1209,4 @@ void Application::set_parameters ()
     }
   }
 }
+

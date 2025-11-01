@@ -148,7 +148,6 @@ ISR(INT1_vect)
     debounce_p++;
   if (debounce_p == 3)
   {
-    noInterrupts();
     pitch_counter = ICR1;                      // Get Timer-Counter 1 value
     pitch = (pitch_counter - pitch_counter_l); // Counter change since last interrupt -> pitch value
     pitch_counter_l = pitch_counter;           // Set actual value as new last value
@@ -163,7 +162,6 @@ ISR(INT1_vect)
     debounce_v++;
   if (debounce_v == 3)
   {
-    noInterrupts();
     vol_counter = vol_counter_i;         // Get Timer-Counter 1 value
     vol = (vol_counter - vol_counter_l); // Counter change since last interrupt
     vol_counter_l = vol_counter;         // Set actual value as new last value
@@ -190,8 +188,6 @@ ISR(INT1_vect)
     volumeCVAvailable=false;  //Reset flag
   }
 
-  noInterrupts();
-  enableInt1();
 // Added by ThF 20200419
 #ifdef TH_DEBUG
   HW_LED2_OFF;
@@ -222,3 +218,4 @@ ISR(TIMER1_OVF_vect)
 {
   timer_overflow_counter++;
 }
+

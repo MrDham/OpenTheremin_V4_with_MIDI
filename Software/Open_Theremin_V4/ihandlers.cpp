@@ -122,10 +122,6 @@ ISR(INT1_vect)
   // Latch previously written DAC value:
   SPImcpDAClatch();
 
-  disableInt1(); // Disable External Interrupt INT1 to avoid recursive interrupts
-  // Enable Interrupts to allow counter 1 interrupts
-  interrupts();
-
   int16_t waveSample;
   uint32_t scaledSample = 0;
   uint16_t offset = (uint16_t)(pointer >> 6) & 0x3ff;
@@ -218,4 +214,5 @@ ISR(TIMER1_OVF_vect)
 {
   timer_overflow_counter++;
 }
+
 

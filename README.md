@@ -1,4 +1,4 @@
-# MIDI IMPLEMENTATION - V1.2
+# MIDI IMPLEMENTATION - V1.4
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 

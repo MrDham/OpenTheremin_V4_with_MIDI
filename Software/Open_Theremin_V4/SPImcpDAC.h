@@ -58,14 +58,12 @@ static inline void SPImcpDACtransmit(uint16_t data)
 {
 	// Send highbyte and wait for complete
 	SPDR = highByte(data);
-  asm("nop");
-	while (!(SPSR & _BV(SPIF)))
-		;
+	while (!(SPSR & _BV(SPIF))) {}
+	(void)SPDR; // clear SPIF properly 
 	// Send lowbyte and wait for complete
 	SPDR = lowByte(data);
-  asm("nop");
-	while (!(SPSR & _BV(SPIF)))
-		;
+	while (!(SPSR & _BV(SPIF))) {}
+	(void)SPDR; // clear SPIF properly 
 }
 
 static inline void SPImcpDAClatch()

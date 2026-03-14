@@ -966,7 +966,7 @@ void Application::set_parameters ()
   data_pot_value = analogRead(WAVE_SELECT_POT);
 
   // If parameter pot moved
-  if (abs((int32_t)param_pot_value - (int32_t)old_param_pot_value) >= 8)
+  if (abs((int32_t)param_pot_value - (int32_t)old_param_pot_value) >= 32)
   {
     // Blink the LED relatively to pot position
     resetTimer();

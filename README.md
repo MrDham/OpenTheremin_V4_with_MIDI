@@ -116,10 +116,7 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
 Select a Parameter and move "Parameter's Value" to change corresponding setting. 
 
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
-
-The picture at https://github.com/MrDham/OpenTheremin_V3_with_MIDI/blob/master/MIDI%20Open%20Theremin%20V3%20HMI.bmp gives an example of possible HMI: on "Value" pot, red lines have 4 positions, grey lines have 5 positions and yellow lines have 8 positions. On "Parameter" pot you see coloured lines indicating which colour to follow for the "Value" pot. 
-
-The Quick Guide at https://github.com/MrDham/OpenTheremin_V3_with_MIDI/blob/master/Quick%20guide%20open%20theremin%20midi.bmp works well with this HMI. Print it on a portrait A4 sheet of paper, plastify it and take it with your theremin everywhere you go... 
+Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 
 
 The volume trigger can be configured so as we have some volume at note attack on percussive sounds. 
 The volume trigger setting is also used to set sensitivity for velocity (how fast left hand is moving when note is triggered). 

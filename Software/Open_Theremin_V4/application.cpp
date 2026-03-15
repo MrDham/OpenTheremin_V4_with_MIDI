@@ -1087,7 +1087,14 @@ void Application::set_parameters ()
       
     case 5:
       // Volume trigger
-      data_steps = data_pot_value >> 8;
+      if ((data_pot_value >> 3) < 127)
+      {
+        data_steps = 0; // Note messages generated
+      }
+      else
+      {
+        data_steps = 1; // Note messages not generated
+      }
       midi_volume_trigger = (uint8_t)((data_pot_value >> 3) & 0x007F);
       break;
       

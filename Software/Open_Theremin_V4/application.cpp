@@ -57,6 +57,7 @@ static uint8_t midi_volume_trigger = 0;
 static uint8_t flag_legato_on = 1;
 static uint8_t flag_pitch_bend_on = 1;
 static uint8_t loop_midi_cc = 7;
+static uint8_t loop_midi_cc_aux = 255;
 static uint8_t rod_midi_cc = 255; 
 static uint8_t rod_midi_cc_lo = 255; 
 static uint32_t rod_cc_scale = 128;
@@ -739,6 +740,10 @@ void Application::midi_application ()
       if (loop_midi_cc < 128)
       {
         midi_msg_send(midi_channel, 0xB0, loop_midi_cc, new_midi_loop_cc_val);
+        if (loop_midi_cc_aux < 128)
+        {
+          midi_msg_send(midi_channel, 0xB0, loop_midi_cc_aux, new_midi_loop_cc_val); 
+        }
       }
       old_midi_loop_cc_val = new_midi_loop_cc_val;
     }
@@ -810,6 +815,10 @@ void Application::midi_application ()
       if (loop_midi_cc < 128)
       {
         midi_msg_send(midi_channel, 0xB0, loop_midi_cc, new_midi_loop_cc_val);
+        if (loop_midi_cc_aux < 128)
+        {
+          midi_msg_send(midi_channel, 0xB0, loop_midi_cc_aux, new_midi_loop_cc_val); 
+        }
       }
       old_midi_loop_cc_val = new_midi_loop_cc_val;
     }
@@ -888,8 +897,10 @@ void Application::midi_application ()
     break;
     
   case MIDI_STOP:
-    // Send all note off
+    // Send current note off, all note off and all sound off
+    midi_msg_send(midi_channel, 0x90, old_midi_note, 0);
     midi_msg_send(midi_channel, 0xB0, 0x7B, 0x00);
+    midi_msg_send(midi_channel, 0xB0, 0x78, 0x00);
 
     _midistate = MIDI_MUTE;
     break;
@@ -1023,8 +1034,10 @@ void Application::set_parameters ()
       midi_channel = (uint8_t)(data_steps & 0x000F);
       if (old_midi_channel != midi_channel)
       {
-        // Send all note off to avoid stuck notes
+        // Send current note off, all note off and all sound off to overkill any stuck notes
+        midi_msg_send(old_midi_channel, 0x90, old_midi_note, 0);
         midi_msg_send(old_midi_channel, 0xB0, 0x7B, 0x00);
+        midi_msg_send(old_midi_channel, 0xB0, 0x78, 0x00);
         old_midi_channel = midi_channel;
       }
       break;
@@ -1154,27 +1167,35 @@ void Application::set_parameters ()
       {
       case 0:
         loop_midi_cc = 1; // Modulation
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       case 1:
         loop_midi_cc = 7; // Volume
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       case 2:
         loop_midi_cc = 11; // Expression
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       case 3:
         loop_midi_cc = 71; // Resonnance
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       case 4:
         loop_midi_cc = 74; // Cutoff (exists of both loop and rod)
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       case 5:
-        loop_midi_cc = 91; // Reverb
+        loop_midi_cc = 93; // Chorus
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       case 6:
-        loop_midi_cc = 93; // Chorus
+        loop_midi_cc = 95; // Phaser
+        loop_midi_cc_aux = 255; // No auxiliary cc
         break; 
       default:
-        loop_midi_cc = 95; // Phaser
+        loop_midi_cc = 7; // Volume
+        loop_midi_cc_aux = 74; // Cutoff auxiliary CC
         break; 
       }
       break;
@@ -1216,5 +1237,3 @@ void Application::set_parameters ()
     }
   }
 }
-
-

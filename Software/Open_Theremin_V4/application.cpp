@@ -717,7 +717,7 @@ void Application::midi_application ()
   else if (vPointerIncrement > 26315) // vPointerIncrement = tmpPitch >> registerValue
   {
     // Highest note
-    long_log_note = 127; 
+    long_log_note = 127 << 12; 
   }
   else 
   {

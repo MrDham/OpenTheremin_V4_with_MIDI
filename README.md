@@ -138,7 +138,7 @@ Volume trigger = 127 (Maximum) won't generate any NOTE ON. It can be used to gen
 Manipulation of "Rod antenna MIDI CC" and "Loop antenna MIDI CC" is not error proof. MIDI newbies should be advised to change their value in MUTE mode. 
 
  
-Default configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Rod antenna mode = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
+Default configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Aftertouch off/Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
 
 
 MUTE CAPACITIVE BUTTON: 

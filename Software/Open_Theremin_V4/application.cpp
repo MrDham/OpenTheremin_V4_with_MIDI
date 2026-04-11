@@ -30,10 +30,12 @@ static uint8_t old_midi_note =0;
 
 static uint8_t new_midi_loop_cc_val =0;
 static uint8_t old_midi_loop_cc_val =0;
-
 static uint8_t midi_velocity = 0;
 
 static uint8_t loop_hand_pos = 0; 
+
+static uint8_t new_midi_aftertouch_val = 0;
+static uint8_t old_midi_aftertouch_val = 0;
 
 static uint16_t new_midi_rod_cc_val =0;
 static uint16_t old_midi_rod_cc_val =0;
@@ -54,10 +56,10 @@ static uint8_t midi_channel = 0;
 static uint8_t old_midi_channel = 0;
 static uint8_t midi_bend_range = 2;
 static uint8_t midi_volume_trigger = 0;
+static uint8_t flag_aftertouch_on = 0;
 static uint8_t flag_legato_on = 1;
 static uint8_t flag_pitch_bend_on = 1;
 static uint8_t loop_midi_cc = 7;
-static uint8_t loop_midi_cc_aux = 255;
 static uint8_t rod_midi_cc = 255; 
 static uint8_t rod_midi_cc_lo = 255; 
 static uint32_t rod_cc_scale = 128;
@@ -675,22 +677,30 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }
 
 
-void Application::midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2, uint8_t midi_value) 
+void Application::midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2_val1, uint8_t midi_val2) 
 {
   uint8_t mixed_cmd1_channel; 
 
   mixed_cmd1_channel = (midi_cmd1 & 0xF0)| (channel & 0x0F);
   
   Serial.write(mixed_cmd1_channel);
-  Serial.write(midi_cmd2);
-  Serial.write(midi_value);
+  Serial.write(midi_cmd2_val1);
+
+  if (midi_val2 < 128)
+  {
+    Serial.write(midi_val2);
+  }
+  else
+  {
+    // do nothing
+  }
 }
 
 // midi_application sends note and volume and uses pitch bend to simulate continuous picth. 
@@ -707,6 +717,16 @@ void Application::midi_application ()
   new_midi_loop_cc_val = loop_hand_pos >> 1; 
   new_midi_loop_cc_val = min (new_midi_loop_cc_val, 127);
   delta_loop_cc_val = (int16_t)new_midi_loop_cc_val - (int16_t)old_midi_loop_cc_val;
+
+  // Calculate aftertouch value for midi based on upper range of loop hand position
+  if (loop_hand_pos > 128)
+  {
+    new_midi_aftertouch_val = loop_hand_pos - 128; 
+  }
+  else
+  {
+    new_midi_aftertouch_val = 0; 
+  }
 
   // Calculate log freq 
   if (vPointerIncrement < 18)  // vPointerIncrement = tmpPitch >> registerValue
@@ -740,12 +760,22 @@ void Application::midi_application ()
       if (loop_midi_cc < 128)
       {
         midi_msg_send(midi_channel, 0xB0, loop_midi_cc, new_midi_loop_cc_val);
-        if (loop_midi_cc_aux < 128)
-        {
-          midi_msg_send(midi_channel, 0xB0, loop_midi_cc_aux, new_midi_loop_cc_val); 
-        }
       }
       old_midi_loop_cc_val = new_midi_loop_cc_val;
+    }
+    else
+    {
+      // do nothing
+    }
+
+    // Always refresh aftertouch. 
+    if (new_midi_aftertouch_val != old_midi_aftertouch_val)
+    {
+      if (flag_aftertouch_on == 1)
+      {
+        midi_msg_send(midi_channel, 0xD0, new_midi_aftertouch_val, 255);
+      }
+      old_midi_aftertouch_val = new_midi_aftertouch_val;
     }
     else
     {
@@ -815,12 +845,22 @@ void Application::midi_application ()
       if (loop_midi_cc < 128)
       {
         midi_msg_send(midi_channel, 0xB0, loop_midi_cc, new_midi_loop_cc_val);
-        if (loop_midi_cc_aux < 128)
-        {
-          midi_msg_send(midi_channel, 0xB0, loop_midi_cc_aux, new_midi_loop_cc_val); 
-        }
       }
       old_midi_loop_cc_val = new_midi_loop_cc_val;
+    }
+    else
+    {
+      // do nothing
+    }
+
+    // Always refresh aftertouch. 
+    if (new_midi_aftertouch_val != old_midi_aftertouch_val)
+    {
+      if (flag_aftertouch_on == 1)
+      {
+        midi_msg_send(midi_channel, 0xD0, new_midi_aftertouch_val, 255);
+      }
+      old_midi_aftertouch_val = new_midi_aftertouch_val;
     }
     else
     {
@@ -1043,23 +1083,47 @@ void Application::set_parameters ()
       break;
         
     case 3:
-      // Rod antenna mode
-      data_steps = data_pot_value >> 8;
+      // Note Lifecycle
+      data_steps = data_pot_value >> 7;
       switch (data_steps)
       {
       case 0:
+        flag_aftertouch_on = 0;
         flag_legato_on = 0;
         flag_pitch_bend_on = 0;
         break; 
       case 1:
+        flag_aftertouch_on = 0;
         flag_legato_on = 0;
         flag_pitch_bend_on = 1;
         break; 
       case 2:
+        flag_aftertouch_on = 0;
+        flag_legato_on = 1;
+        flag_pitch_bend_on = 0;
+        break; 
+      case 3:
+        flag_aftertouch_on = 0;
+        flag_legato_on = 1;
+        flag_pitch_bend_on = 1;
+        break;  
+      case 4:
+        flag_aftertouch_on = 1;
+        flag_legato_on = 0;
+        flag_pitch_bend_on = 0;
+        break; 
+      case 5:
+        flag_aftertouch_on = 1;
+        flag_legato_on = 0;
+        flag_pitch_bend_on = 1;
+        break; 
+      case 6:
+        flag_aftertouch_on = 1;
         flag_legato_on = 1;
         flag_pitch_bend_on = 0;
         break; 
       default:
+        flag_aftertouch_on = 1;
         flag_legato_on = 1;
         flag_pitch_bend_on = 1;
         break;  
@@ -1166,36 +1230,28 @@ void Application::set_parameters ()
       switch (data_steps)
       {
       case 0:
-        loop_midi_cc = 1; // Modulation
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 255; // None
         break; 
       case 1:
-        loop_midi_cc = 7; // Volume
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 1; // Modulation
         break; 
       case 2:
-        loop_midi_cc = 11; // Expression
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 2; // Breath
         break; 
       case 3:
-        loop_midi_cc = 71; // Resonnance
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 4; // Pedal
         break; 
       case 4:
-        loop_midi_cc = 74; // Cutoff (exists of both loop and rod)
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 7; // Volume
         break; 
       case 5:
-        loop_midi_cc = 93; // Chorus
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 11; // Expression
         break; 
       case 6:
-        loop_midi_cc = 95; // Phaser
-        loop_midi_cc_aux = 255; // No auxiliary cc
+        loop_midi_cc = 71; // Resonnance
         break; 
       default:
-        loop_midi_cc = 7; // Volume
-        loop_midi_cc_aux = 74; // Cutoff auxiliary CC
+        loop_midi_cc = 74; // Cutoff (exists of both loop and rod)
         break; 
       }
       break;

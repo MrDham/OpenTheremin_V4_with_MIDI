@@ -116,11 +116,12 @@ SETTINGS:
     In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Rod antenna. 
     You can aslo scale the CC sensivity to hand movement (128 corresponding to 1:1 scale).
     
- 9. Loop antenna MIDI CC: 8 positions 
+ 8. Loop antenna MIDI CC: 8 positions 
 
     None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
 
-    (Notice: Before 2.0 the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser)
+    Notice: Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser.
+    This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gestures than to an effect controls (e.g. Breath over Reverb).  
     
     In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna. 
    

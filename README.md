@@ -100,7 +100,8 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
      Tweakable parameter in application.cpp: "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
      Changing this to your taste may require some test and trial.
      
- 7. Rod antenna MIDI CC: 8 positions 
+ 7. Rod antenna MIDI CC: 8 positions
+    
     None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff
     
     For 14 Bit CC messages, MSB and LSB are always sent together and in the following order: MSB (1st), LSB (2nd) as per MIDI 1.0 Standard. 
@@ -109,8 +110,10 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
     In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Rod antenna. 
     You can aslo scale the CC sensivity to hand movement (128 corresponding to 1:1 scale).
     
- 8. Loop antenna MIDI CC: 8 positions 
+ 9. Loop antenna MIDI CC: 8 positions 
+
     None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
+
     (Notice: Before 2.0 the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser)
     
     In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna. 

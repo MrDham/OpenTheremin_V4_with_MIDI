@@ -1,10 +1,12 @@
-# MIDI IMPLEMENTATION - V1.7
+# MIDI IMPLEMENTATION - V2.0
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
 It is an official version. 
 
 It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4. 
+
+Version 2.0 has been improved to better support MIDI Polyphonic Expression (MPE) synthesizers
 
 # OpenThereminV4
 Open Source Theremin Instrument
@@ -86,8 +88,8 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
 
  3. Channel: 16 positions (channel 1 to 16)
 
- 4. Rod antenna mode: 4 positions 
-     (Legato off/Pitch Bend off, Legato off/Pitch Bend on, Legato on/Pitch Bend off, Legato on/Pitch Bend on)
+ 4. Note Lifecycle: 8 positions 
+     Activates Aftertouch (MSB), Legato and PitchBend (LSB) in a 3 bit binary encoding mode.  
 
  5. Pitch bend range: 8 positions (1, 2, 4, 5, 7, 12, 24, 48 Semitones). 
      For classical glissando and in order to have same note on audio and MIDI, use exactly same pitch bend range on your synth. 
@@ -99,7 +101,7 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
      Changing this to your taste may require some test and trial.
      
  7. Rod antenna MIDI CC: 8 positions 
-    (None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff) 
+    None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff
     
     For 14 Bit CC messages, MSB and LSB are always sent together and in the following order: MSB (1st), LSB (2nd) as per MIDI 1.0 Standard. 
     The receiver can bufferize MSB to synchronize it with the LSB. 
@@ -108,7 +110,8 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
     You can aslo scale the CC sensivity to hand movement (128 corresponding to 1:1 scale).
     
  8. Loop antenna MIDI CC: 8 positions 
-    (1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser)
+    None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
+    (Notice: Before 2.0 the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser)
     
     In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna. 
    

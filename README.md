@@ -55,7 +55,7 @@ The MIDI open theremin generates NOTE ON/OFF messages and  Continuous Controler 
 
 MIDI CC: 
 
-It is possible to affect independant MIDI CCs to the PITCH ANTENNA (ROD) and to the VOLUME ANTENNA (LOOP).  
+It is possible to assign independant MIDI CCs to the PITCH ANTENNA (ROD) and to the VOLUME ANTENNA (LOOP).  
 
 NOTE ON/OFF: 
 
@@ -77,7 +77,13 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
    When left hand moves close to VOLUME ANTENNA (LOOP) and volume goes under Volume trigger threshold, a NOTE OFF is generated to mute the playing note. 
 
   
- SETTINGS:
+MONOPHONIC AFTERTOUCH: 
+
+It is possible to control Monophonic After touch with the upper range of VOLUME ANTENNA (LOOP). 
+It works like the CC assigned to the antenna except that CC covers the full range of the antenna sensitivity whereas Aftertouch just covers the upper 50% range. 
+
+
+SETTINGS:
  
  "Register" pot becomes "Selected Parameter" pot and have 8 positions. 
   "Timbre" pot becomes "Parameter's Value" and have a variable number of positions depending on selected parameter: 

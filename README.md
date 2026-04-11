@@ -79,8 +79,8 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
   
 MONOPHONIC AFTERTOUCH: 
 
-It is possible to control Monophonic After touch with the upper range of VOLUME ANTENNA (LOOP). 
-It works like the CC assigned to the antenna except that CC covers the full range of the antenna sensitivity whereas Aftertouch just covers the upper 50% range. 
+It is possible to control Monophonic Aftertouch with the upper range of VOLUME ANTENNA (LOOP). 
+It works like the CC assigned to the antenna except that the CC covers the full range of the antenna sensitivity whereas Aftertouch just covers the upper 50% range. 
 
 
 SETTINGS:

@@ -390,7 +390,7 @@ mloop: // Main loop avoiding the GCC "optimization"
         
   }
 
-  if (midi_timer > 100) // run midi app every 100 ticks equivalent to approximatevely 3 ms to avoid synth's overload
+  if (midi_timer > 127) // run midi app every 128 ticks equivalent to approximatevely 4 ms to avoid synth's or MIDI traffic's overload
   {   
     midi_application ();
     midi_timer = 0; 
@@ -677,8 +677,8 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }

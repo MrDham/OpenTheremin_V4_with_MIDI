@@ -123,13 +123,15 @@ SETTINGS:
     Notice: Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser.
     This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control (e.g. Breath over Reverb).  
     
-    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna. 
-   
+    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna.
+
 
 Select a Parameter and move "Parameter's Value" to change corresponding setting. 
 
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
 Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 
+
+You can also save your favorite configuration in EEPROM (see CALIBRATION) so as it persists after Power OFF ON cycle. 
 
 The volume trigger can be configured so as we have some volume at note attack on percussive sounds. 
 The volume trigger setting is also used to set sensitivity for velocity (how fast left hand is moving when note is triggered). 
@@ -155,7 +157,21 @@ CV GATE processing from antennas to output jack is the same as in classic open t
 
 CALIBRATION:
 
-This device runs normal calibration of antennas after pushing button for a few second as per initial project
+You can perform calibration with or without saving your configuration (in both cases antenna are calibrated). If you save calibration, it will persist after Power OFF-ON cycle. 
+
+How to save configuration during calibration:
+
+1- Turn Pitch full right
+
+2- Turn Volume full left
+
+3- Long press Function Button
+
+  * Wait end of calibration *
+
+4- Re-center Pitch & Volume
+
+Keep Pitch and Volume centered to perform calibration without saving configuration. 
 
 
 ### Need some support ? 

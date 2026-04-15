@@ -15,6 +15,9 @@ const int16_t PitchFreqOffset = 700;
 const int16_t VolumeFreqOffset = 700;
 const int8_t HYST_VAL = 140;
 
+const uint16_t EEPROM_MAGIC_NUMBER = 0x5555;
+const uint16_t EEPROM_VERSION_NUMBER = 1;
+
 static int32_t pitchCalibrationBase = 0;
 static int32_t pitchCalibrationBaseFreq = 0;
 static int32_t pitchCalibrationConstant = 0;
@@ -266,6 +269,11 @@ mloop: // Main loop avoiding the GCC "optimization"
 
     playCalibratingCountdownSound();
     calibrate();
+
+    if ((volumePotValue < 8) && (pitchPotValue > 1016))
+    {
+      save_parameters (); 
+    }
 
     _mode = NORMAL;
     HW_LED2_OFF;
@@ -677,8 +685,8 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }
@@ -1000,6 +1008,9 @@ void Application::calculate_note_bend ()
 
 void Application::init_parameters ()
 {
+  uint16_t l_eeprom_magic_number;
+  uint16_t l_eeprom_version_number;
+  
   // init data pot value to avoid 1st position to be taken into account
 
   param_pot_value = analogRead(REGISTER_SELECT_POT);
@@ -1007,7 +1018,48 @@ void Application::init_parameters ()
 
   data_pot_value = analogRead(WAVE_SELECT_POT);
   old_data_pot_value = data_pot_value;
+
+  EEPROM.get(12, l_eeprom_magic_number);
+  EEPROM.get(14, l_eeprom_version_number);
+  
+  if ((l_eeprom_magic_number == EEPROM_MAGIC_NUMBER) && (l_eeprom_version_number == EEPROM_VERSION_NUMBER))
+  {
+    EEPROM.get(16, registerValue);
+    EEPROM.get(17, vWavetableSelector);
+    EEPROM.get(18, midi_channel);
+    EEPROM.get(19, old_midi_channel);
+    EEPROM.get(20, midi_bend_range);
+    EEPROM.get(21, midi_volume_trigger);
+    EEPROM.get(22, flag_aftertouch_on);
+    EEPROM.get(23, flag_legato_on);
+    EEPROM.get(24, flag_pitch_bend_on);
+    EEPROM.get(25, loop_midi_cc);
+    EEPROM.get(26, rod_midi_cc);
+    EEPROM.get(27, rod_midi_cc_lo);
+    EEPROM.get(28, rod_cc_scale);
+  }
 }
+
+void Application::save_parameters ()
+{
+  EEPROM.put(16, registerValue);
+  EEPROM.put(17, vWavetableSelector);
+  EEPROM.put(18, midi_channel);
+  EEPROM.put(19, old_midi_channel);
+  EEPROM.put(20, midi_bend_range);
+  EEPROM.put(21, midi_volume_trigger);
+  EEPROM.put(22, flag_aftertouch_on);
+  EEPROM.put(23, flag_legato_on);
+  EEPROM.put(24, flag_pitch_bend_on);
+  EEPROM.put(25, loop_midi_cc);
+  EEPROM.put(26, rod_midi_cc);
+  EEPROM.put(27, rod_midi_cc_lo);
+  EEPROM.put(28, rod_cc_scale);
+
+  EEPROM.put(12, EEPROM_MAGIC_NUMBER);
+  EEPROM.put(14, EEPROM_VERSION_NUMBER);
+}
+
 
 void Application::set_parameters ()
 {

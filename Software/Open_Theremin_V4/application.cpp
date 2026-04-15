@@ -270,7 +270,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     playCalibratingCountdownSound();
     calibrate();
 
-    if ((volumePotValue < 8) && (pitchPotValue > 1016))
+    if ((volumePotValue < 8) && (pitchPotValue > 1015))
     {
       save_parameters (); 
     }

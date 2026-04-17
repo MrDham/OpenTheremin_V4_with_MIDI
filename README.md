@@ -8,6 +8,8 @@ It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4.
 
 Version 2.0 has been improved to better support MIDI Polyphonic Expression (MPE) synthesizers (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments). 
 
+It also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle
+
 # OpenThereminV4
 Open Source Theremin Instrument
 
@@ -131,8 +133,6 @@ Select a Parameter and move "Parameter's Value" to change corresponding setting.
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
 Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 
 
-You can also save your favorite configuration in EEPROM (see CALIBRATION) so as it persists after Power OFF ON cycle. 
-
 The volume trigger can be configured so as we have some volume at note attack on percussive sounds. 
 The volume trigger setting is also used to set sensitivity for velocity (how fast left hand is moving when note is triggered). 
 Volume trigger = 127 (Maximum) won't generate any NOTE ON. It can be used to generate MIDI CC only.
@@ -140,7 +140,10 @@ Volume trigger = 127 (Maximum) won't generate any NOTE ON. It can be used to gen
 Manipulation of "Rod antenna MIDI CC" and "Loop antenna MIDI CC" is not error proof. MIDI newbies should be advised to change their value in MUTE mode. 
 
  
-Default configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Aftertouch off/Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
+Default startup configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Aftertouch off/Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
+
+
+You can also save your own favourite startup configuration in EEPROM (see CALIBRATION) so as it persists after Power OFF ON cycle. 
 
 
 MUTE CAPACITIVE BUTTON: 
@@ -161,13 +164,13 @@ You can perform calibration with or without saving your configuration (in both c
 
 How to save configuration during calibration:
 
-1- Turn Pitch full right
+1- Turn Volume full left
 
-2- Turn Volume full left
+2- Turn Pitch full right
 
 3- Long press Function Button
 
-  * Wait end of calibration *
+     Wait end of calibration
 
 4- Re-center Pitch & Volume
 

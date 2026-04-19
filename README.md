@@ -170,7 +170,7 @@ How to save configuration during calibration:
 
 3- Long press Function Button
 
-     Wait end of calibration
+     Wait for end of calibration
 
 4- Re-center Pitch & Volume
 

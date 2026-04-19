@@ -256,6 +256,11 @@ mloop: // Main loop avoiding the GCC "optimization"
 
   if (_state == CALIBRATING && timerExpired(65000))
   {
+    // Send current note off, all note off and all sound off
+    midi_msg_send(midi_channel, 0x90, old_midi_note, 0);
+    midi_msg_send(midi_channel, 0xB0, 0x7B, 0x00);
+    midi_msg_send(midi_channel, 0xB0, 0x78, 0x00);
+    
     HW_LED1_ON;
     HW_LED2_ON;
 
@@ -398,7 +403,9 @@ mloop: // Main loop avoiding the GCC "optimization"
         
   }
 
-  if (midi_timer > 127) // run midi app every 128 ticks equivalent to approximatevely 4 ms to avoid synth's or MIDI traffic's overload
+  // run midi app every 140 ticks equivalent to approximatevely 4.5 ms to avoid synth's or MIDI traffic's overload
+  // each midi_application run may generate up to 14 Bytes of MIDI traffic just for PB, CCs and Mono AT which take 4.48ms at MIDI Baudrate
+  if (midi_timer > 140) 
   {   
     midi_application ();
     midi_timer = 0; 
@@ -685,8 +692,8 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }

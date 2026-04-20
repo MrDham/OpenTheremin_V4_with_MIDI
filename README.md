@@ -2,13 +2,11 @@
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
-It is an official version. 
-
 It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4. 
 
-Version 2.0 has been improved to better support MIDI Polyphonic Expression (MPE) synthesizers (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments). 
+MIDI SW Version 2.0 has been improved to better support MIDI Polyphonic Expression (MPE) synthesizers (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments). 
 
-It also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle
+It also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle. 
 
 # OpenThereminV4
 Open Source Theremin Instrument

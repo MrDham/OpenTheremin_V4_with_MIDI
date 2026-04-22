@@ -71,8 +71,8 @@ http://www.gaudi.ch/OpenTheremin/
    
    * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 2.5 mm (recommanded) or 3.5 mm Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
    
-5. Selecting the correct usb port on Tools -> Serial Port
-6. Select the correct arduino board from Tools -> Board
+5. Select the correct usb port in Tools -> Serial Port
+6. Select "Arduino Uno" board in Tools -> Board
 7. Upload the code by clicking on the upload button.
 
 ### Added and removed compare to Open Theremin V4. 

@@ -56,7 +56,7 @@ http://www.gaudi.ch/OpenTheremin/
 
 ### Installation
 1. Download ZIP file from the green "<> Code" icon and unzip the file in proper directory.  
-2. Open up the Arduino IDE
+2. Open up the Arduino IDE (install it from https://www.arduino.cc/)
 3. Open the File "Open_Theremin_V4.ino"
 4. Important Step !  In "Application.cpp", take care of selecting MIDI mode that correponds to your cituation (put "//" in front off inadequate line - Real MIDI Baudrate is selected by default here):
 

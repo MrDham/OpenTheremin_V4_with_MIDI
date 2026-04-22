@@ -9,7 +9,7 @@ Version 2.0 of MIDI SW has been improved to better support synthesizers compatib
 Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see CALIBRATION below). 
 
 ### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer:
-If your Open Theremin V4 didn't come with MIDI MIDI software version 2.0 or higher, please read and apply "Installation" instructions provided later in this readme file. 
+If you don't have MIDI software version 2.0 or higher installed on your theremin, please read and apply "Installation" instructions provided later in this readme file. 
 If you already have it, you can proceed to the following workflow: 
 1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
 2. Power your theremin, ground it properly. 

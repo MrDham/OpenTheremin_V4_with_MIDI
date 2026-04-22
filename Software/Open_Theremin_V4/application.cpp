@@ -55,11 +55,11 @@ static uint32_t midi_key_follow = 2048;
 // Configuration parameters
 static uint8_t registerValue = 2;
   // wavetable selector is defined and initialized in ihandlers.cpp
-static uint8_t midi_channel = 0;
-static uint8_t old_midi_channel = 0;
-static uint8_t midi_bend_range = 2;
+static uint8_t midi_channel = 1;
+static uint8_t old_midi_channel = 1;
+static uint8_t midi_bend_range = 48;
 static uint8_t midi_volume_trigger = 0;
-static uint8_t flag_aftertouch_on = 0;
+static uint8_t flag_aftertouch_on = 1;
 static uint8_t flag_legato_on = 1;
 static uint8_t flag_pitch_bend_on = 1;
 static uint8_t loop_midi_cc = 7;
@@ -68,7 +68,7 @@ static uint8_t rod_midi_cc_lo = 255;
 static uint32_t rod_cc_scale = 128;
 
 // tweakable paramameters
-#define VELOCITY_SENS  9 // How easy it is to reach highest velocity (127). Something betwen 5 and 12.
+#define VELOCITY_SENS  11 // How easy it is to reach highest velocity (127). Something betwen 5 and 12.
 //#define PLAYER_ACCURACY  0.2 // between 0 (very accurate players) and 0.5 (not accurate at all)
 #define PLAYER_ACCURACY  819 // between 0 (very accurate players) and 2048 (not accurate at all)
 
@@ -692,8 +692,8 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }

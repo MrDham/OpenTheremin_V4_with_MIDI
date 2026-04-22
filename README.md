@@ -55,9 +55,10 @@ For more info on the open source project and on availability of ready made shiel
 http://www.gaudi.ch/OpenTheremin/
 
 ### Installation
-1. Open up the Arduino IDE
-2. Open the File "Open_Theremin_V4.ino"
-3. Important Step !  In "Application.cpp", take care of selecting MIDI mode that correponds to your cituation (put "//" in front off inadequate line - Real MIDI Baudrate is selected by default here):
+1. Download ZIP file from the green "<> Code" icon and unzip the file in proper directory.  
+2. Open up the Arduino IDE
+3. Open the File "Open_Theremin_V4.ino"
+4. Important Step !  In "Application.cpp", take care of selecting MIDI mode that correponds to your cituation (put "//" in front off inadequate line - Real MIDI Baudrate is selected by default here):
 
    //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial
    
@@ -70,9 +71,9 @@ http://www.gaudi.ch/OpenTheremin/
    
    * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 2.5 mm (recommanded) or 3.5 mm Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
    
-4. Selecting the correct usb port on Tools -> Serial Port
-5. Select the correct arduino board from Tools -> Board
-6. Upload the code by clicking on the upload button.
+5. Selecting the correct usb port on Tools -> Serial Port
+6. Select the correct arduino board from Tools -> Board
+7. Upload the code by clicking on the upload button.
 
 ### Added and removed compare to Open Theremin V4. 
 Serial communication implemented for program monitoring purpose was removed (Particularly during calibration).

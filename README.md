@@ -165,7 +165,7 @@ Select a Parameter and move "Parameter's Value" to change corresponding setting
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
 Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 
  
-DEFAULT STARTUP CONFIGURATION
+DEFAULT STARTUP CONFIGURATION:
 
 In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0, default startup configuration is: 
 
@@ -190,7 +190,7 @@ In order to have a first plug and play user experience with MPE synths (e.g. Sur
 
 You can save your own favourite startup configuration in EEPROM (see "CALIBRATION AND SAVING STARTUP CONFIGURATION") so as it persists after Power OFF ON cycle. 
 
-TECHNICAL DETAIL ABOUT MPE IMPACTING SETTINGS
+TECHNICAL DETAIL ABOUT MPE IMPACTING SETTINGS:
 
 A global principle of MPE is to define one or two zones (called Upper and Lower Zone), 
 each one having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and

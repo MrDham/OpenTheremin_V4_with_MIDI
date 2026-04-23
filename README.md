@@ -25,15 +25,15 @@ http://www.gaudi.ch/OpenTheremin/
 MIDI is an acronym for Musical Interface for Digital Instrument. It is a quite old standard dating
 back to 1983 that was initially designed to connect together (keyboard) synthesizers. 
 MIDI 1.0 standard is implemented here in the open theremin to allow its usesr to control an external syntheziser. 
+More information about MIDI and Theremin : https://app.box.com/s/s3yx1ro1v8ay061626wy09vmbo7do23q 
 
 ### MPE (MIDI Polyphonic Expression)
-MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphonic continuous
-controllers. The development of these controllers by the late 2010’s led to the development of
-software synths that can be interesting to play with a theremin because of their great Pitch Bend
-Range of 48 semitones allowing long glissandos. 
+MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphonic continuous controllers. 
+The development of these controllers by the late 2010’s led to the development of software synths that can be interesting to play with a theremin because of their great Pitch Bend Range of 48 semitones allowing long glissandos. 
+Somehow, MPE also incidentaly formalized the way to interact with monophonic continuous controlers. 
 
-A global principle of MPE is to define one or two zones (called Upper and Lower Zone), each one
-having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
+For the technical detail, a global principle of MPE is to define one or two zones (called Upper and Lower Zone), 
+each one having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
 Channel 15). These Member Channels are purposed to distribute the polyphonic notes when using a
 polyphonic controller, each note being taken as a monophonic instrument. This way, each note can
 have its own Pitch Bend, its own Aftertouch and its own Continuous Controlers. Hence the name of

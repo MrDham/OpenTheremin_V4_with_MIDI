@@ -1,17 +1,19 @@
-# MIDI IMPLEMENTATION - V2.0 (New : Improved MPE Compatibility)
+# MIDI IMPLEMENTATION - V2.0
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
 It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4. 
 
+### New : Improved MPE Compatibility
 Version 2.0 of MIDI SW has been improved to better support synthesizers compatible with MIDI Polyphonic Expression (MPE) technology (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments, first startup comfiguration compatible with MPE). MPE offers many advantages for the MIDI theremins (see "First user experience..." later in this readme file).   
 
+### New : Save your favourite configuration
 Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see "Calibration and configuration saving" later in this document). 
 
 # OpenThereminV4
 Open Source Theremin Instrument
 
-Schematics, printed circuit board (PCB) design, bill of materials (BOM) and Arduino UNO compatible software for the OpenTheremin V4
+Schematics, printed circuit board (PCB) design, bill of materials (BOM) and Arduino UNO compatible software with MIDI support for the OpenTheremin V4
 
 ### Open Source Theremin based on the Arduino Platform
 

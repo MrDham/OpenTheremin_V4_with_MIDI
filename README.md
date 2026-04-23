@@ -151,7 +151,7 @@ Sends current NOTE OFF, ALL NOTE OFF and ALL SOUND OFF messages on selected chan
 
      None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
 
-     Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser. This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control, e.g. Breath over Reverb.
+     Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser. This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control (e.g. Breath over Reverb).
 
      In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna.
 

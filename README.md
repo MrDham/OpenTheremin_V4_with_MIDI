@@ -32,20 +32,6 @@ MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphoni
 The development of these controllers by the late 2010’s led to the development of software synths that can be interesting to play with a theremin because of their great Pitch Bend Range of 48 semitones allowing long glissandos. 
 Somehow, MPE also incidentaly formalized the way to interact with monophonic continuous controlers. 
 
-For the technical detail, a global principle of MPE is to define one or two zones (called Upper and Lower Zone), 
-each one having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
-Channel 15). These Member Channels are purposed to distribute the polyphonic notes when using a
-polyphonic controller, each note being taken as a monophonic instrument. This way, each note can
-have its own Pitch Bend, its own Aftertouch and its own Continuous Controlers. Hence the name of
-“polyphonic expression”.
-
-A common setting of MPE synths is to have Pich Bend Range of Manager Channel set to 2 and
-Pitch Bend Range of Member Channels set to 48. 
-
-Without entering into too much detail here, the theremin being monophonic, it simply needs to use
-one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
-to 48 to be able to control properly a MPE synth. 
-
 ### Installation
 1. Download ZIP file from the green "<> Code" icon and unzip the file in proper directory.  
 2. Open up the Arduino IDE (install it from https://www.arduino.cc/)
@@ -177,10 +163,26 @@ Manipulation of "Rod antenna MIDI CC" and "Loop antenna MIDI CC" is not error pr
  
 In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0 Default startup configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 2, Note Lifecycle = Aftertouch on/Legato on/Pitch Bend on, Pitch bend range = 48 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
 
-Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume
+(Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume)
 
 
 You can also save your own favourite startup configuration in EEPROM (see CALIBRATION) so as it persists after Power OFF ON cycle. 
+
+TECHNICAL DETAIL ABOUT MPE IMPACTING SETTINGS
+
+A global principle of MPE is to define one or two zones (called Upper and Lower Zone), 
+each one having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
+Channel 15). These Member Channels are purposed to distribute the polyphonic notes when using a
+polyphonic controller, each note being taken as a monophonic instrument. This way, each note can
+have its own Pitch Bend, its own Aftertouch and its own Continuous Controlers. Hence the name of
+“polyphonic expression”.
+
+A common default setting of MPE synths is to have Pich Bend Range of Manager Channel set to 2 (for Pitch wheel control) and
+Pitch Bend Range of Member Channels set to 48 (for long glissandos). 
+
+Without entering into too much detail here, the theremin being monophonic, it simply needs to use
+one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
+to 48 to be able to control properly a MPE synth. 
 
 
 MUTE CAPACITIVE BUTTON: 

@@ -163,7 +163,7 @@ Manipulation of "Rod antenna MIDI CC" and "Loop antenna MIDI CC" is not error pr
  
 In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0 Default startup configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 2, Note Lifecycle = Aftertouch on/Legato on/Pitch Bend on, Pitch bend range = 48 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
 
-(Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume)
+Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume
 
 
 You can also save your own favourite startup configuration in EEPROM (see CALIBRATION) so as it persists after Power OFF ON cycle. 

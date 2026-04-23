@@ -126,47 +126,68 @@ SETTINGS:
 
  6. Volume trigger / Velocity sensitivity (how fast moves the volume loop's hand): 128 positions (0 to 127)
 
-     Tweakable parameter in application.cpp: "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
-     Changing this to your taste may require some test and trial.
+    The volume trigger can be configured so as we have some volume at note attack on percussive sounds.
+
+    The volume trigger setting is also used to set sensitivity for velocity (how fast left hand is moving when note is triggered).
+
+    Volume trigger = 127 (Maximum) won't generate any NOTE ON. It can be used to generate MIDI CC only.
+
+    Tweakable parameter in application.cpp: "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
+    Changing this to your taste may require some test and trial.
      
- 7. Rod antenna MIDI CC: 8 positions
-    
-    None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff
-    
-    For 14 Bit CC messages, MSB and LSB are always sent together and in the following order: MSB (1st), LSB (2nd) as per MIDI 1.0 Standard. 
-    The receiver can bufferize MSB to synchronize it with the LSB. 
-    
-    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Rod antenna. 
+ 8. Rod antenna MIDI CC: 8 positions
+   
+     None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff
+
+    For 14 Bit CC messages, MSB and LSB are always sent together and in the following order: MSB (1st), LSB (2nd) as per MIDI 1.0 Standard.
+
+    The receiver can bufferize MSB to synchronize it with the LSB.
+
+    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Rod antenna.
+
     You can aslo scale the CC sensivity to hand movement (128 corresponding to 1:1 scale).
+
+    Manipulation of Rod antenna MIDI CC is not error proof. It is much easier to change its value in MUTE mode. 
     
- 8. Loop antenna MIDI CC: 8 positions 
+ 11. Loop antenna MIDI CC: 8 positions
 
-    None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
+     None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
 
-    Notice: Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser.
-    This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control (e.g. Breath over Reverb).  
-    
-    In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna.
+     (Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser. This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control, e.g. Breath over Reverb).
 
+     In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna.
 
-Select a Parameter and move "Parameter's Value" to change corresponding setting. 
+     Manipulation of Loop antenna MIDI CC is not error proof. It is much easier to change its value in MUTE mode. 
+   
+*** Select a Parameter and move "Parameter's Value" to change corresponding setting ***
 
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
 Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 
-
-The volume trigger can be configured so as we have some volume at note attack on percussive sounds. 
-The volume trigger setting is also used to set sensitivity for velocity (how fast left hand is moving when note is triggered). 
-Volume trigger = 127 (Maximum) won't generate any NOTE ON. It can be used to generate MIDI CC only.
-
-Manipulation of "Rod antenna MIDI CC" and "Loop antenna MIDI CC" is not error proof. MIDI newbies should be advised to change their value in MUTE mode. 
-
  
-In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0 Default startup configuration is: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 2, Note Lifecycle = Aftertouch on/Legato on/Pitch Bend on, Pitch bend range = 48 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume. 
+DEFAULT STARTUP CONFIGURATION
 
-Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume
+In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0, default startup configuration is: 
+
+* Register = Center 
+
+* Timbre = 1st Waveform 
+
+* Channel = MIDI Channel 2 
+
+* Note Lifecycle = Aftertouch on/Legato on/Pitch Bend on 
+
+* Pitch bend range = 48 Semitones
+
+* Volume trigger = 0
+
+* Rod antenna MIDI CC = None
+
+* Loop antenna MIDI CC = 7-Volume. 
+
+(Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume)
 
 
-You can also save your own favourite startup configuration in EEPROM (see CALIBRATION) so as it persists after Power OFF ON cycle. 
+You can save your own favourite startup configuration in EEPROM (see "CALIBRATION AND SAVING STARTUP CONFIGURATION") so as it persists after Power OFF ON cycle. 
 
 TECHNICAL DETAIL ABOUT MPE IMPACTING SETTINGS
 
@@ -187,7 +208,7 @@ to 48 to be able to control properly a MPE synth.
 
 MUTE CAPACITIVE BUTTON: 
 
-Sends ALL NOTE OFF on selected channel and stay in mute until it is pushed again.  
+Sends current NOTE OFF, ALL NOTE OFF and ALL SOUND OFF messages on selected channel so as no sound survives to "mute order" and keep the theremin in mute state (no sound and no MIDI massages) until it is pushed again.  
 
 AUDIO: 
 
@@ -197,7 +218,7 @@ CV GATE:
 
 CV GATE processing from antennas to output jack is the same as in classic open theremin V4. I just increased precision of associated mathematics to follow more accurately audio and MIDI frequency so as you can control your analog devices and MIDI devices side by side. 
 
-CALIBRATION:
+CALIBRATION AND SAVING STARTUP CONFIGURATION:
 
 You can perform calibration with or without saving your configuration (in both cases antenna are calibrated). If you save calibration, it will persist after Power OFF-ON cycle. 
 
@@ -220,8 +241,6 @@ Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremi
 
 ### Any questions about MIDI and theremins ?
 The answer is probably there: https://app.box.com/s/s3yx1ro1v8ay061626wy09vmbo7do23q 
-
-
 
 ### Aknowledgement
 All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !

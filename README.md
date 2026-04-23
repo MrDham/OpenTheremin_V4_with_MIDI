@@ -81,14 +81,15 @@ Let's consider a Fade-in / Picth Variation / Fade-out sequence (I use right hand
 
  1. Fade-In
 
-     When left hand moves away from VOLUME ANTENNA (LOOP) and volume crosses a settable threshold (Volume trigger), a NOTE ON is generated. VELOCITY depends on how fast left hand is moving. Right hand's position next to PITCH ANTENNA (ROD) determines the starting NOTE NUMBER. 
+     When left hand moves away from VOLUME ANTENNA (LOOP) and volume crosses a settable threshold (Volume trigger), a NOTE ON is generated. VELOCITY depends on how fast left hand is moving.
+     Right hand's position next to PITCH ANTENNA (ROD) determines the starting NOTE NUMBER. 
 
 
- 2. Pitch variation
+ 3. Pitch variation
 
     When right hand moves next to PITCH ANTENNA (ROD), PITCH BEND messages are generated (if activated) to reach exact pitch as long as pitch bend range will do.  Beyond, a new NOTE ON followed by a NOTE OFF for the previous note are generated if legato mode is activated. Pitch bend range can be configured (1, 2, 4, 5, 7, 12, 24 or 48 semitones) to align with synth's maximum capabilities. 
 
- 3. Fade-Out
+ 4. Fade-Out
 
     When left hand moves close to VOLUME ANTENNA (LOOP) and volume goes under Volume trigger threshold, a NOTE OFF is generated to mute the playing note. 
 
@@ -150,7 +151,7 @@ Sends current NOTE OFF, ALL NOTE OFF and ALL SOUND OFF messages on selected chan
 
      None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
 
-     (Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser. This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control, e.g. Breath over Reverb).
+     Before 2.0, the 8 positions used to be 1-Modulation, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff, 91-Reverb, 93-Chorus, 95-Phaser. This modification was decided in order to allow "None" option and to give priority to CC numbers that better correspond to a musical gesture than to an effect control, e.g. Breath over Reverb.
 
      In function "Application::set_parameters" of application.cpp you can tweak the code to configure the list of CC associated Loop antenna.
 
@@ -181,7 +182,7 @@ In order to have a first plug and play user experience with MPE synths (e.g. Sur
 
  8. Loop antenna MIDI CC = 7-Volume. 
 
-(Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume)
+Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume
 
 
 You can save your own favourite startup configuration in EEPROM (see "CALIBRATION AND SAVING STARTUP CONFIGURATION") so as it persists after Power OFF ON cycle. 

@@ -6,7 +6,7 @@ It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4.
 
 Version 2.0 of MIDI SW has been improved to better support synthesizers compatible with MIDI Polyphonic Expression (MPE) technology (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments, first startup comfiguration compatible with MPE). MPE offers many advantages for the MIDI theremins (see "First user experience..." later in this readme file).   
 
-Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see CALIBRATION below). 
+Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see "Calibration and configuration saving" later in this document). 
 
 # OpenThereminV4
 Open Source Theremin Instrument
@@ -53,7 +53,7 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
 6. Select "Arduino Uno" board in Tools -> Board
 7. Upload the code by clicking on the upload button.
 
-### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer:
+### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer
 1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
 2. Power your theremin, ground it properly, keep default factory settings unchanged.  
 3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)
@@ -98,8 +98,11 @@ MONOPHONIC AFTERTOUCH:
 It is possible to control Monophonic Aftertouch with the upper range of VOLUME ANTENNA (LOOP). 
 It works like the CC assigned to the antenna except that the CC covers the full range of the antenna sensitivity whereas Aftertouch covers the upper 50% range with a full 7 bits definition (from 0 to 127). Thus, aftertouch provides an additional control, allowing you to modulate the sound after the note has been played and has become audible. 
 
+MUTE CAPACITIVE BUTTON: 
 
-SETTINGS:
+Sends current NOTE OFF, ALL NOTE OFF and ALL SOUND OFF messages on selected channel so as no sound survives to "mute order" and keep the theremin in mute state (no sound and no MIDI massages) until it is pushed again. 
+
+### Settings
  
  "Register" pot becomes "Selected Parameter" pot and have 8 positions. 
  
@@ -158,7 +161,7 @@ Select a Parameter and move "Parameter's Value" to change corresponding setting
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
 Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 
  
-DEFAULT STARTUP CONFIGURATION:
+### Default Startup configuration
 
 In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0, default startup configuration is: 
 
@@ -183,7 +186,7 @@ In order to have a first plug and play user experience with MPE synths (e.g. Sur
 
 You can save your own favourite startup configuration in EEPROM (see "CALIBRATION AND SAVING STARTUP CONFIGURATION") so as it persists after Power OFF ON cycle. 
 
-TECHNICAL DETAIL ABOUT MPE IMPACTING SETTINGS:
+### Technical detail about MPE impacting settings
 
 A global principle of MPE is to define one or two zones (called Upper and Lower Zone), 
 each one having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
@@ -198,21 +201,17 @@ Pitch Bend Range of Member Channels set to 48 (for long glissandos).
 Without entering into too much detail here, the theremin being monophonic, it simply needs to use
 one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
 to 48 to be able to control properly a MPE synth. 
+ 
 
-
-MUTE CAPACITIVE BUTTON: 
-
-Sends current NOTE OFF, ALL NOTE OFF and ALL SOUND OFF messages on selected channel so as no sound survives to "mute order" and keep the theremin in mute state (no sound and no MIDI massages) until it is pushed again.  
-
-AUDIO: 
+### Audio output 
 
 Audio processing from antennas to output jack, including volume and pitch pots, LEDs and button functions, is exactly the same as in open theremin V4.  You can play the Audio and control MIDI devices side by side. 
 
-CV GATE: 
+### CV GATE 
 
 CV GATE processing from antennas to output jack is the same as in classic open theremin V4. I just increased precision of associated mathematics to follow more accurately audio and MIDI frequency so as you can control your analog devices and MIDI devices side by side. 
 
-CALIBRATION AND SAVING STARTUP CONFIGURATION:
+### Calibration and configuration saving
 
 You can perform calibration with or without saving your configuration (in both cases antenna are calibrated). If you save calibration, it will persist after Power OFF-ON cycle. 
 

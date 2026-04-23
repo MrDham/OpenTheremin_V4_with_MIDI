@@ -109,7 +109,8 @@ It works like the CC assigned to the antenna except that the CC covers the full 
 SETTINGS:
  
  "Register" pot becomes "Selected Parameter" pot and have 8 positions. 
-  "Timbre" pot becomes "Parameter's Value" and have a variable number of positions depending on selected parameter: 
+ 
+ "Timbre" pot becomes "Parameter's Value" and have a variable number of positions depending on selected parameter: 
  
  1. Register: 3 positions (-1 Octave, center, +1 Octave) as in original Open Theremin V4 
 

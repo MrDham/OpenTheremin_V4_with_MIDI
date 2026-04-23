@@ -64,13 +64,6 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
 8. Select a fancy preset
 9. Play
 
-### Added and removed compare to Open Theremin V4. 
-Serial communication implemented for program monitoring purpose was removed (Particularly during calibration).
-If you need to monitor calibration for antenna problem fixing, please use original master branch from 
-https://github.com/GaudiLabs/OpenThereminV4. 
-
-Serial port is used to send MIDI messages now. 
-
 ### How does it work ? 
 
 The MIDI open theremin generates NOTE ON/OFF messages and  Continuous Controler changes (MIDI CC) depending on settings and hands' position next to antennas. 
@@ -169,21 +162,21 @@ DEFAULT STARTUP CONFIGURATION:
 
 In order to have a first plug and play user experience with MPE synths (e.g. Surge XT), from version 2.0, default startup configuration is: 
 
- * Register = Center 
+ 1. Register = Center 
 
- * Timbre = 1st Waveform 
+ 2. Timbre = 1st Waveform 
 
- * Channel = MIDI Channel 2 
+ 3. Channel = MIDI Channel 2 
 
- * Note Lifecycle = Aftertouch on/Legato on/Pitch Bend on 
+ 4. Note Lifecycle = Aftertouch on/Legato on/Pitch Bend on 
 
- * Pitch bend range = 48 Semitones
+ 5. Pitch bend range = 48 Semitones
 
- * Volume trigger = 0
+ 6. Volume trigger = 0
 
- * Rod antenna MIDI CC = None
+ 7. Rod antenna MIDI CC = None
 
- * Loop antenna MIDI CC = 7-Volume. 
+ 8. Loop antenna MIDI CC = 7-Volume. 
 
 (Before version 2.0 it used to be: Register = Center, Timbre = 1st Waveform, Channel = MIDI Channel 1, Note Lifecycle = Legato on/Pitch Bend on, Pitch bend range = 2 Semitones, Volume trigger = 0, Rod antenna MIDI CC = None, Loop antenna MIDI CC = 7-Volume)
 
@@ -231,7 +224,7 @@ How to save configuration during calibration:
 
  3. Long press Function Button
 
- *  Wait for end of calibration 
+    *  Wait for end of calibration 
 
  4. Re-center Pitch & Volume
 
@@ -242,6 +235,13 @@ Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremi
 
 ### Any questions about MIDI and theremins ?
 The answer is probably there: https://app.box.com/s/s3yx1ro1v8ay061626wy09vmbo7do23q 
+
+### Added and removed compare to Open Theremin V4. 
+Serial communication implemented for program monitoring purpose was removed (Particularly during calibration).
+If you need to monitor calibration for antenna problem fixing, please use original master branch from 
+https://github.com/GaudiLabs/OpenThereminV4. 
+
+Serial port is used to send MIDI messages now. 
 
 ### Aknowledgement
 All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !

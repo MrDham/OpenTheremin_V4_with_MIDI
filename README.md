@@ -15,13 +15,18 @@ Schematics, printed circuit board (PCB) design, bill of materials (BOM) and Ardu
 
 ### Open Source Theremin based on the Arduino Platform
 
-OpenTheremin is an arduino based real Therein instrument. The legendary music instrument was invented by Leon Theremin back in 1920. The theremin is played with two antennas, one to control the pitch and one for volume. The electronic shield with two ports to connect those antennas comprises two heterodyne oscillators to measure the distance of the hand to the antenna when playing the instrument. The resulting signal is fed into a AtMega328P microcontroller. After linearization and filtering the circuit generates the instruments sound that is then played through a high quality digital analog audio converter on the board. The characteristics of the sound can be determined by a wave table on the arduino.
+OpenTheremin is an arduino based real Theremin instrument. The legendary music instrument was invented by Leon Theremin back in 1920. The theremin is played with two antennas, one to control the pitch and one for volume. The electronic shield with two ports to connect those antennas comprises two heterodyne oscillators to measure the distance of the hand to the antenna when playing the instrument. The resulting signal is fed into a AtMega328P microcontroller. After linearization and filtering the circuit generates the instruments sound that is then played through a high quality digital analog audio converter on the board. The characteristics of the sound can be determined by a wave table on the arduino.
 
 For more info on the open source project and on availability of ready made shield see:
 
 http://www.gaudi.ch/OpenTheremin/
 
-### About MPE (MIDI Polyphonic Expression)
+### MIDI 1.0 standard
+MIDI is an acronym for Musical Interface for Digital Instrument. It is a quite old standard dating
+back to 1983 that was initially designed to connect together (keyboard) synthesizers. 
+MIDI 1.0 standard is implemented here in the open theremin to allow its usesr to control an external syntheziser. 
+
+### MPE (MIDI Polyphonic Expression)
 MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphonic continuous
 controllers. The development of these controllers by the late 2010’s led to the development of
 software synths that can be interesting to play with a theremin because of their great Pitch Bend
@@ -40,6 +45,7 @@ Pitch Bend Range of Member Channels set to 48.
 Without entering into too much detail here, the theremin being monophonic, it simply needs to use
 one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
 to 48 to be able to control properly a MPE synth. 
+
 ### Installation
 1. Download ZIP file from the green "<> Code" icon and unzip the file in proper directory.  
 2. Open up the Arduino IDE (install it from https://www.arduino.cc/)
@@ -65,7 +71,7 @@ to 48 to be able to control properly a MPE synth.
 1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
 2. Power your theremin, ground it properly, keep default factory settings unchanged.  
 3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)
-4. Let your theremin warm up and calibrate IT (with Pitch and Volume knob at 12 o'clock) 
+4. Let your theremin warm up and calibrate it (with Pitch and Volume knob at 12 o'clock) 
 5. Start SURGE XT and activate the proper MIDI input connected to your theremin in option menu.
 6. Configure audio properly in Surge XT (depending on your system)
 7. Activate MPE mode

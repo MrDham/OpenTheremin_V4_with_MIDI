@@ -136,7 +136,7 @@ SETTINGS:
     Tweakable parameter in application.cpp: "#define VELOCITY_SENS 9" -> How easy it is to reach highest velocity (127). Something betwen 5 and 12.
     Changing this to your taste may require some test and trial.
      
- 8. Rod antenna MIDI CC: 8 positions
+ 7. Rod antenna MIDI CC: 8 positions
    
      None, 8-Balance, 10-Pan, 16-MSB/48-LSB-GeneralPurpose-1, 17-MSB/49-LSB-GeneralPurpose-2, 18-GeneralPurpose-3, 19-GeneralPurpose-4, 74-cutoff
 
@@ -150,7 +150,7 @@ SETTINGS:
 
     Manipulation of Rod antenna MIDI CC is not error proof. It is much easier to change its value in MUTE mode. 
     
- 11. Loop antenna MIDI CC: 8 positions
+ 8. Loop antenna MIDI CC: 8 positions
 
      None, 1-Modulation, 2-breath, 4-Pedal, 7-Volume, 11-Expression, 71-Resonnance, 74-Cutoff
 
@@ -160,7 +160,7 @@ SETTINGS:
 
      Manipulation of Loop antenna MIDI CC is not error proof. It is much easier to change its value in MUTE mode. 
    
-*** Select a Parameter and move "Parameter's Value" to change corresponding setting ***
+Select a Parameter and move "Parameter's Value" to change corresponding setting 
 
 While you rotate the pots, the LED toggles (OFF/PINK) every steps to give you some angular feedback before going back to PLAY/MUTE Status. 
 Please look at the quick guide here for more detail: https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/Antiseche%20open%20theremin%20PnB.pdf 

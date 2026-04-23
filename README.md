@@ -21,6 +21,25 @@ For more info on the open source project and on availability of ready made shiel
 
 http://www.gaudi.ch/OpenTheremin/
 
+### About MPE (MIDI Polyphonic Expression)
+MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphonic continuous
+controllers. The development of these controllers by the late 2010’s led to the development of
+software synths that can be interesting to play with a theremin because of their great Pitch Bend
+Range of 48 semitones allowing long glissandos. 
+
+A global principle of MPE is to define one or two zones (called Upper and Lower Zone), each one
+having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
+Channel 15). These Member Channels are purposed to distribute the polyphonic notes when using a
+polyphonic controller, each note being taken as a monophonic instrument. This way, each note can
+have its own Pitch Bend, its own Aftertouch and its own Continuous Controlers. Hence the name of
+“polyphonic expression”.
+
+A common setting of MPE synths is to have Pich Bend Range of Manager Channel set to 2 and
+Pitch Bend Range of Member Channels set to 48. 
+
+Without entering into too much detail here, the theremin being monophonic, it simply needs to use
+one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
+to 48 to be able to control properly a MPE synth. 
 ### Installation
 1. Download ZIP file from the green "<> Code" icon and unzip the file in proper directory.  
 2. Open up the Arduino IDE (install it from https://www.arduino.cc/)
@@ -41,6 +60,17 @@ http://www.gaudi.ch/OpenTheremin/
 5. Select the correct usb port in Tools -> Serial Port
 6. Select "Arduino Uno" board in Tools -> Board
 7. Upload the code by clicking on the upload button.
+
+### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer:
+1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
+2. Power your theremin, ground it properly, keep default factory settings unchanged.  
+3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)
+4. Let your theremin warm up and calibrate IT (with Pitch and Volume knob at 12 o'clock) 
+5. Start SURGE XT and activate the proper MIDI input connected to your theremin in option menu.
+6. Configure audio properly in Surge XT (depending on your system)
+7. Activate MPE mode
+8. Select a fancy preset
+9. Play
 
 ### Added and removed compare to Open Theremin V4. 
 Serial communication implemented for program monitoring purpose was removed (Particularly during calibration).
@@ -176,38 +206,6 @@ How to save configuration during calibration:
 4- Re-center Pitch & Volume
 
 Keep Pitch and Volume centered to perform calibration without saving configuration. 
-
-
-### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer:
-1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
-2. Power your theremin, ground it properly, keep default factory settings unchanged.  
-3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)
-4. Let your theremin warm up and calibrate IT (with Pitch and Volume knob at 12 o'clock) 
-5. Start SURGE XT and activate the proper MIDI input connected to your theremin in option menu.
-6. Configure audio properly in Surge XT (depending on your system)
-7. Activate MPE mode
-8. Select a fancy preset
-9. Play
-
-### About MPE (MIDI Polyphonic Expression)
-MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphonic continuous
-controllers. The development of these controllers by the late 2010’s led to the development of
-software synths that can be interesting to play with a theremin because of their great Pitch Bend
-Range of 48 semitones allowing long glissandos. 
-
-A global principle of MPE is to define one or two zones (called Upper and Lower Zone), each one
-having a Manager Channel (1 or 16) and a group of Member Channels (between Channel 2 and
-Channel 15). These Member Channels are purposed to distribute the polyphonic notes when using a
-polyphonic controller, each note being taken as a monophonic instrument. This way, each note can
-have its own Pitch Bend, its own Aftertouch and its own Continuous Controlers. Hence the name of
-“polyphonic expression”.
-
-A common setting of MPE synths is to have Pich Bend Range of Manager Channel set to 2 and
-Pitch Bend Range of Member Channels set to 48. 
-
-Without entering into too much detail here, the theremin being monophonic, it simply needs to use
-one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
-to 48 to be able to control properly a MPE synth. 
 
 ### Need some support ? 
 Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues

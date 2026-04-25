@@ -1,4 +1,9 @@
-# MIDI IMPLEMENTATION - V2.0
+# OPEN THEREMIN V4
+# MIDI Implementation - V2.0
+
+Open Source Theremin Instrument
+
+Schematics, printed circuit board (PCB) design, bill of materials (BOM) and Arduino UNO compatible software with MIDI support for the OpenTheremin V4
 
 This repositoty includes software and hardware design. Anyway just the software part is modified here to support MIDI. 
 
@@ -10,10 +15,7 @@ Version 2.0 of MIDI SW has been improved to better support synthesizers compatib
 ### New : Save your favourite configuration
 Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see "Calibration and configuration saving" later in this document). 
 
-# OpenThereminV4
-Open Source Theremin Instrument
-
-Schematics, printed circuit board (PCB) design, bill of materials (BOM) and Arduino UNO compatible software with MIDI support for the OpenTheremin V4
+# Open Theremin and MIDI interface
 
 ### Open Source Theremin based on the Arduino Platform
 
@@ -204,19 +206,10 @@ Pitch Bend Range of Member Channels set to 48 (for long glissandos).
 Without entering into too much detail here, the theremin being monophonic, it simply needs to use
 one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
 to 48 to be able to control properly a MPE synth. 
- 
-
-### Audio output 
-
-Audio processing from antennas to output jack, including volume and pitch pots, LEDs and button functions, is exactly the same as in open theremin V4.  You can play the Audio and control MIDI devices side by side. 
-
-### CV GATE 
-
-CV GATE processing from antennas to output jack is the same as in classic open theremin V4. I just increased precision of associated mathematics to follow more accurately audio and MIDI frequency so as you can control your analog devices and MIDI devices side by side. 
 
 ### Calibration and configuration saving
 
-You can perform calibration with or without saving your configuration (in both cases antenna are calibrated). If you save calibration, it will persist after Power OFF-ON cycle. 
+You can perform calibration with or without saving your configuration (in both cases antennas are calibrated). If you save a configuration, it will persist after Power OFF-ON cycle. 
 
 How to save configuration during calibration:
 
@@ -231,6 +224,14 @@ How to save configuration during calibration:
  4. Re-center Pitch & Volume
 
 Keep Pitch and Volume centered to perform calibration without saving configuration. 
+
+### Audio output 
+
+Audio processing from antennas to output jack, including volume and pitch pots, LEDs and button functions, is exactly the same as in open theremin V4.  You can play the Audio and control MIDI devices side by side. 
+
+### CV GATE 
+
+CV GATE processing from antennas to output jacks is the same as in classic open theremin V4. I just increased precision of associated mathematics to follow more accurately audio and MIDI frequency so as you can control your analog devices and MIDI devices side by side. 
 
 ### Need some support ? 
 Please log bugs, requests and questions at https://github.com/MrDham/OpenTheremin_V4_with_MIDI/issues
@@ -250,5 +251,4 @@ All this is based on the original project created by Urs Gaudenz with great cont
 
 Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the developement phase of version 1.0. 
 
-Many thanks to Pat Morisson (https://www.saxophoneboutique.com/) for his testing, and for encouraging me to explore MPE during the development phase of version 2.0. I owe him the implementation of a “plug-and-play” scenario withMIDI. 
-
+Many thanks to Pat Morisson (https://www.saxophoneboutique.com/) for his testing, and for encouraging to explore MPE during the development phase of version 2.0. He was a huge help in setting up a “plug-and-play” scenario with MIDI. 

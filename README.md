@@ -1,5 +1,5 @@
-# OPEN THEREMIN V4
-# MIDI Implementation - V2.0
+# OPEN THEREMIN V4 
+# MIDI IMPLEMENTATION - V2.0
 
 Open Source Theremin Instrument
 
@@ -15,7 +15,7 @@ Version 2.0 of MIDI SW has been improved to better support synthesizers compatib
 ### New : Save your favourite configuration
 Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see "Calibration and configuration saving" later in this document). 
 
-# Open Theremin and MIDI interface
+#  OPEN THEREMIN AND MIDI INTERFACE
 
 ### Open Source Theremin based on the Arduino Platform
 

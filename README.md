@@ -248,5 +248,7 @@ Serial port is used to send MIDI messages now.
 ### Aknowledgement
 All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !
 
-Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the developement phase. 
+Many thanks to @JuliusKB (https://github.com/JuliusKB) for test, trial and fruitfull challenge on design during the developement phase of version 1.0. 
+
+Many thanks to Pat Morisson (https://www.saxophoneboutique.com/) for his testing, and for encouraging me to explore MPE during the development phase of version 2.0. I owe him the implementation of a “plug-and-play” scenario withMIDI. 
 

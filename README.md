@@ -53,7 +53,7 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
    
    * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 2.5 mm (recommanded) or 3.5 mm Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
    
-5. Connect your Open Theremin to the computer via the rear side USB port (disconect the rear ribbon cable for the Eurorack version)
+5. Connect your Open Theremin to the computer via the USB port on the right side (temporarily disconnect the ribbon cable at the back for the Eurorack version)
 6. Select the correct usb port in Tools -> Serial Port
 7. Select "Arduino Uno" board in Tools -> Board
 8. Upload the code by clicking on the upload button.

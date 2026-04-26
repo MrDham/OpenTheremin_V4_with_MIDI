@@ -63,7 +63,7 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
 2. Power your theremin, ground it properly, keep default factory settings unchanged (don't move the two lower knobs)  
 3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)
 4. Let your theremin warm up and calibrate it with Pitch and Volume knob at 12 o'clock 
-5. Start SURGE XT and activate the proper MIDI input connected to your theremin in option menu.
+5. Start SURGE XT in standalone mode and activate the proper MIDI input connected to your theremin in option menu.
 6. Configure audio properly in Surge XT (depending on your system)
 7. Activate MPE mode
 8. Select a fancy preset

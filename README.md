@@ -59,9 +59,9 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
 
 ### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer
 1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
-2. Power your theremin, ground it properly, keep default factory settings unchanged.  
+2. Power your theremin, ground it properly, keep default factory settings unchanged (don't move the two lower knobs)  
 3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)
-4. Let your theremin warm up and calibrate it (with Pitch and Volume knob at 12 o'clock) 
+4. Let your theremin warm up and calibrate it with Pitch and Volume knob at 12 o'clock 
 5. Start SURGE XT and activate the proper MIDI input connected to your theremin in option menu.
 6. Configure audio properly in Surge XT (depending on your system)
 7. Activate MPE mode

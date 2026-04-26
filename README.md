@@ -53,9 +53,10 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
    
    * Open Theremin being very compact, instead of DIN 5 connector, you might want to use a TRS 2.5 mm (recommanded) or 3.5 mm Jack connector as recently adopted by the MIDI standard: https://www.midi.org/midi-articles/trs-specification-adopted-and-released  
    
-5. Select the correct usb port in Tools -> Serial Port
-6. Select "Arduino Uno" board in Tools -> Board
-7. Upload the code by clicking on the upload button.
+5. Connect your Open Theremin to the computer via the rear side USB port (disconect the rear ribbon cable for the Eurorack version)
+6. Select the correct usb port in Tools -> Serial Port
+7. Select "Arduino Uno" board in Tools -> Board
+8. Upload the code by clicking on the upload button.
 
 ### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer
 1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer

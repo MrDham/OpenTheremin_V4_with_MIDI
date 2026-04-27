@@ -208,6 +208,8 @@ Without entering into too much detail here, the theremin being monophonic, it si
 one of the Member Channels (e.g. Channel 2 for the Lower Zone) and to have Pitch Bend Range set
 to 48 to be able to control properly a MPE synth. 
 
+However, there is one limitation : The open theremin won't send any RPN message to configure the receiver (the role to configure another device is not taken by the open theremin, intentionally). It is up the user to configure the synth with proper settings. Activating MPE with with one zone (Lower Zone) and one Member Channel should work properly. This point is to be considered particularly when using a DAW.  
+
 ### Calibration and configuration saving
 
 You can perform calibration with or without saving your configuration (in both cases antennas are calibrated). If you save a configuration, it will persist after Power OFF-ON cycle. 

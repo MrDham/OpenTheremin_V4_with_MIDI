@@ -10,7 +10,7 @@ This repositoty includes software and hardware design. Anyway just the software 
 It is synchronised with V4.5.0 from  GaudiLabs/OpenThereminV4. 
 
 ### New : Improved MPE Compatibility
-Version 2.0 of MIDI SW has been improved to better support synthesizers compatible with MIDI Polyphonic Expression (MPE) technology (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments, first startup comfiguration compatible with MPE). MPE offers many advantages for the MIDI theremins (see "First user experience..." later in this readme file).   
+Version 2.0 of MIDI SW has been improved to better support synthesizers compatible with MIDI Polyphonic Expression (MPE) technology (Support of monophonic aftertouch, list of CC for volume loop more in line with specific musical gestures of MPE instruments, first startup configuration compatible with MPE). MPE offers many advantages for the MIDI theremins (see "First user experience..." later in this readme file).   
 
 ### New : Save your favourite configuration
 Version 2.0 and higher also provides the capacity to save your favourite startup configuration in EEPROM so as it persits after power OFF/ON cycle (see "Calibration and configuration saving" later in this document). 
@@ -34,7 +34,7 @@ More information about MIDI and Theremin : https://app.box.com/s/s3yx1ro1v8ay061
 ### MPE (MIDI Polyphonic Expression)
 MIDI Polyphonic Expression is an attempt to adapt MIDI 1.0 protocol to polyphonic continuous controllers. 
 The development of these controllers by the late 2010’s led to the development of software synths that can be interesting to play with a theremin because of their great Pitch Bend Range of 48 semitones allowing long glissandos. 
-Somehow, MPE also incidentaly formalized the way to interact with monophonic continuous controlers. 
+Somehow, MPE also incidentaly formalized the way to interact with monophonic continuous controlers like the theremin. 
 
 ### Installation
 1. Download ZIP file from the green "<> Code" icon and unzip the file in proper directory.  

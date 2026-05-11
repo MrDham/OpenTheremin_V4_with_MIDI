@@ -59,6 +59,9 @@ Somehow, MPE also incidentaly formalized the way to interact with monophonic con
 8. Upload the code by clicking on the upload button.
 
 ### First user experience with Open Theremin (MIDI software version 2.0 or higher) paired with the Surge XT software synthesizer
+
+Surge XT is a free, open-source (GNU GPL3) hybrid synthesizer. It is completely independent of the “Open Theremin with MIDI” project, but this synthesizer could provide a pleasant user experience when paired with a MIDI theremin.   
+
 1. Install SURGE XT from https://surge-synthesizer.github.io/ on your computer
 2. Power your theremin, ground it properly, keep default factory settings unchanged (don't move the two lower knobs)  
 3. Connect your theremin's MIDI interface to your computer (if you have a "twin DIN" to USB cable, connect MIDI IN cable to the theremin)

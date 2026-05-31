@@ -660,9 +660,9 @@ void Application::playNote(float hz, uint16_t milliseconds = 500, uint8_t volume
 
 void Application::playStartupSound()
 {
-  playNote(MIDDLE_C, 150, 25);
-  playNote(MIDDLE_C * 2, 150, 25);
   playNote(MIDDLE_C * 4, 150, 25);
+  playNote(MIDDLE_C * 2, 150, 25);
+  playNote(MIDDLE_C, 150, 25);
 }
 
 void Application::playCalibratingCountdownSound()
@@ -692,8 +692,8 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }

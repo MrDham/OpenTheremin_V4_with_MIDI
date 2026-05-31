@@ -660,9 +660,9 @@ void Application::playNote(float hz, uint16_t milliseconds = 500, uint8_t volume
 
 void Application::playStartupSound()
 {
-  playNote(MIDDLE_C, 150, 25);
-  playNote(MIDDLE_C * 2, 150, 25);
   playNote(MIDDLE_C * 4, 150, 25);
+  playNote(MIDDLE_C * 2, 150, 25);
+  playNote(MIDDLE_C, 150, 25);
 }
 
 void Application::playCalibratingCountdownSound()

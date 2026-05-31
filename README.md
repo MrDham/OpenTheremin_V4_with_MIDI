@@ -252,6 +252,10 @@ https://github.com/GaudiLabs/OpenThereminV4.
 
 Serial port is used to send MIDI messages now. 
 
+### How to know in which firmware version the device is running
+* V1.x: The melody at the begining of calibration is an ascending sequence: C4, C5, C6.
+* V2.x: The melody at the begining of calibration is a descending sequence: C6, C5, C4. 
+  
 ### Aknowledgement
 All this is based on the original project created by Urs Gaudenz with great contributions from Thierry Frenkel. Open theremin V3 and now V4 have been great fun to play since 2017 for me. Thanks !
 

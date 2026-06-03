@@ -69,9 +69,10 @@ class Application {
     void delay_NOP(unsigned long time);
 
     void midi_setup();
-    void midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2, uint8_t midi_value);
+    void midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2_val1, uint8_t midi_val2);
     void midi_application ();
     void calculate_note_bend ();
+    void save_parameters ();
     void init_parameters ();
     void set_parameters ();
 

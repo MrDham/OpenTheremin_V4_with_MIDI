@@ -15,6 +15,9 @@ const int16_t PitchFreqOffset = 700;
 const int16_t VolumeFreqOffset = 700;
 const int8_t HYST_VAL = 140;
 
+const uint16_t EEPROM_MAGIC_NUMBER = 0x5555;
+const uint16_t EEPROM_VERSION_NUMBER = 1;
+
 static int32_t pitchCalibrationBase = 0;
 static int32_t pitchCalibrationBaseFreq = 0;
 static int32_t pitchCalibrationConstant = 0;
@@ -30,10 +33,12 @@ static uint8_t old_midi_note =0;
 
 static uint8_t new_midi_loop_cc_val =0;
 static uint8_t old_midi_loop_cc_val =0;
-
 static uint8_t midi_velocity = 0;
 
 static uint8_t loop_hand_pos = 0; 
+
+static uint8_t new_midi_aftertouch_val = 0;
+static uint8_t old_midi_aftertouch_val = 0;
 
 static uint16_t new_midi_rod_cc_val =0;
 static uint16_t old_midi_rod_cc_val =0;
@@ -50,10 +55,11 @@ static uint32_t midi_key_follow = 2048;
 // Configuration parameters
 static uint8_t registerValue = 2;
   // wavetable selector is defined and initialized in ihandlers.cpp
-static uint8_t midi_channel = 0;
-static uint8_t old_midi_channel = 0;
-static uint8_t midi_bend_range = 2;
+static uint8_t midi_channel = 1;
+static uint8_t old_midi_channel = 1;
+static uint8_t midi_bend_range = 48;
 static uint8_t midi_volume_trigger = 0;
+static uint8_t flag_aftertouch_on = 1;
 static uint8_t flag_legato_on = 1;
 static uint8_t flag_pitch_bend_on = 1;
 static uint8_t loop_midi_cc = 7;
@@ -62,7 +68,7 @@ static uint8_t rod_midi_cc_lo = 255;
 static uint32_t rod_cc_scale = 128;
 
 // tweakable paramameters
-#define VELOCITY_SENS  9 // How easy it is to reach highest velocity (127). Something betwen 5 and 12.
+#define VELOCITY_SENS  11 // How easy it is to reach highest velocity (127). Something betwen 5 and 12.
 //#define PLAYER_ACCURACY  0.2 // between 0 (very accurate players) and 0.5 (not accurate at all)
 #define PLAYER_ACCURACY  819 // between 0 (very accurate players) and 2048 (not accurate at all)
 
@@ -250,6 +256,11 @@ mloop: // Main loop avoiding the GCC "optimization"
 
   if (_state == CALIBRATING && timerExpired(65000))
   {
+    // Send current note off, all note off and all sound off
+    midi_msg_send(midi_channel, 0x90, old_midi_note, 0);
+    midi_msg_send(midi_channel, 0xB0, 0x7B, 0x00);
+    midi_msg_send(midi_channel, 0xB0, 0x78, 0x00);
+    
     HW_LED1_ON;
     HW_LED2_ON;
 
@@ -263,6 +274,11 @@ mloop: // Main loop avoiding the GCC "optimization"
 
     playCalibratingCountdownSound();
     calibrate();
+
+    if ((volumePotValue < 8) && (pitchPotValue > 1015))
+    {
+      save_parameters (); 
+    }
 
     _mode = NORMAL;
     HW_LED2_OFF;
@@ -387,7 +403,9 @@ mloop: // Main loop avoiding the GCC "optimization"
         
   }
 
-  if (midi_timer > 100) // run midi app every 100 ticks equivalent to approximatevely 3 ms to avoid synth's overload
+  // run midi app every 140 ticks equivalent to approximatevely 4.5 ms to avoid synth's or MIDI traffic's overload
+  // each midi_application run may generate up to 14 Bytes of MIDI traffic just for PB, CCs and Mono AT which take 4.48ms at MIDI Baudrate
+  if (midi_timer > 140) 
   {   
     midi_application ();
     midi_timer = 0; 
@@ -642,9 +660,9 @@ void Application::playNote(float hz, uint16_t milliseconds = 500, uint8_t volume
 
 void Application::playStartupSound()
 {
-  playNote(MIDDLE_C, 150, 25);
-  playNote(MIDDLE_C * 2, 150, 25);
   playNote(MIDDLE_C * 4, 150, 25);
+  playNote(MIDDLE_C * 2, 150, 25);
+  playNote(MIDDLE_C, 150, 25);
 }
 
 void Application::playCalibratingCountdownSound()
@@ -681,15 +699,23 @@ void Application::midi_setup()
 }
 
 
-void Application::midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2, uint8_t midi_value) 
+void Application::midi_msg_send(uint8_t channel, uint8_t midi_cmd1, uint8_t midi_cmd2_val1, uint8_t midi_val2) 
 {
   uint8_t mixed_cmd1_channel; 
 
   mixed_cmd1_channel = (midi_cmd1 & 0xF0)| (channel & 0x0F);
   
   Serial.write(mixed_cmd1_channel);
-  Serial.write(midi_cmd2);
-  Serial.write(midi_value);
+  Serial.write(midi_cmd2_val1);
+
+  if (midi_val2 < 128)
+  {
+    Serial.write(midi_val2);
+  }
+  else
+  {
+    // do nothing
+  }
 }
 
 // midi_application sends note and volume and uses pitch bend to simulate continuous picth. 
@@ -707,6 +733,16 @@ void Application::midi_application ()
   new_midi_loop_cc_val = min (new_midi_loop_cc_val, 127);
   delta_loop_cc_val = (int16_t)new_midi_loop_cc_val - (int16_t)old_midi_loop_cc_val;
 
+  // Calculate aftertouch value for midi based on upper range of loop hand position
+  if (loop_hand_pos > 128)
+  {
+    new_midi_aftertouch_val = loop_hand_pos - 128; 
+  }
+  else
+  {
+    new_midi_aftertouch_val = 0; 
+  }
+
   // Calculate log freq 
   if (vPointerIncrement < 18)  // vPointerIncrement = tmpPitch >> registerValue
   {
@@ -716,7 +752,7 @@ void Application::midi_application ()
   else if (vPointerIncrement > 26315) // vPointerIncrement = tmpPitch >> registerValue
   {
     // Highest note
-    long_log_note = 127; 
+    long_log_note = 127 << 12; 
   }
   else 
   {
@@ -741,6 +777,20 @@ void Application::midi_application ()
         midi_msg_send(midi_channel, 0xB0, loop_midi_cc, new_midi_loop_cc_val);
       }
       old_midi_loop_cc_val = new_midi_loop_cc_val;
+    }
+    else
+    {
+      // do nothing
+    }
+
+    // Always refresh aftertouch. 
+    if (new_midi_aftertouch_val != old_midi_aftertouch_val)
+    {
+      if (flag_aftertouch_on == 1)
+      {
+        midi_msg_send(midi_channel, 0xD0, new_midi_aftertouch_val, 255);
+      }
+      old_midi_aftertouch_val = new_midi_aftertouch_val;
     }
     else
     {
@@ -818,6 +868,20 @@ void Application::midi_application ()
       // do nothing
     }
 
+    // Always refresh aftertouch. 
+    if (new_midi_aftertouch_val != old_midi_aftertouch_val)
+    {
+      if (flag_aftertouch_on == 1)
+      {
+        midi_msg_send(midi_channel, 0xD0, new_midi_aftertouch_val, 255);
+      }
+      old_midi_aftertouch_val = new_midi_aftertouch_val;
+    }
+    else
+    {
+      // do nothing
+    }
+
     // Always refresh midi rod antena cc if applicable. 
     if (new_midi_rod_cc_val != old_midi_rod_cc_val)
     {
@@ -888,8 +952,10 @@ void Application::midi_application ()
     break;
     
   case MIDI_STOP:
-    // Send all note off
+    // Send current note off, all note off and all sound off
+    midi_msg_send(midi_channel, 0x90, old_midi_note, 0);
     midi_msg_send(midi_channel, 0xB0, 0x7B, 0x00);
+    midi_msg_send(midi_channel, 0xB0, 0x78, 0x00);
 
     _midistate = MIDI_MUTE;
     break;
@@ -949,6 +1015,9 @@ void Application::calculate_note_bend ()
 
 void Application::init_parameters ()
 {
+  uint16_t l_eeprom_magic_number;
+  uint16_t l_eeprom_version_number;
+  
   // init data pot value to avoid 1st position to be taken into account
 
   param_pot_value = analogRead(REGISTER_SELECT_POT);
@@ -956,7 +1025,48 @@ void Application::init_parameters ()
 
   data_pot_value = analogRead(WAVE_SELECT_POT);
   old_data_pot_value = data_pot_value;
+
+  EEPROM.get(12, l_eeprom_magic_number);
+  EEPROM.get(14, l_eeprom_version_number);
+  
+  if ((l_eeprom_magic_number == EEPROM_MAGIC_NUMBER) && (l_eeprom_version_number == EEPROM_VERSION_NUMBER))
+  {
+    EEPROM.get(16, registerValue);
+    EEPROM.get(17, vWavetableSelector);
+    EEPROM.get(18, midi_channel);
+    EEPROM.get(19, old_midi_channel);
+    EEPROM.get(20, midi_bend_range);
+    EEPROM.get(21, midi_volume_trigger);
+    EEPROM.get(22, flag_aftertouch_on);
+    EEPROM.get(23, flag_legato_on);
+    EEPROM.get(24, flag_pitch_bend_on);
+    EEPROM.get(25, loop_midi_cc);
+    EEPROM.get(26, rod_midi_cc);
+    EEPROM.get(27, rod_midi_cc_lo);
+    EEPROM.get(28, rod_cc_scale);
+  }
 }
+
+void Application::save_parameters ()
+{
+  EEPROM.put(16, registerValue);
+  EEPROM.put(17, vWavetableSelector);
+  EEPROM.put(18, midi_channel);
+  EEPROM.put(19, old_midi_channel);
+  EEPROM.put(20, midi_bend_range);
+  EEPROM.put(21, midi_volume_trigger);
+  EEPROM.put(22, flag_aftertouch_on);
+  EEPROM.put(23, flag_legato_on);
+  EEPROM.put(24, flag_pitch_bend_on);
+  EEPROM.put(25, loop_midi_cc);
+  EEPROM.put(26, rod_midi_cc);
+  EEPROM.put(27, rod_midi_cc_lo);
+  EEPROM.put(28, rod_cc_scale);
+
+  EEPROM.put(12, EEPROM_MAGIC_NUMBER);
+  EEPROM.put(14, EEPROM_VERSION_NUMBER);
+}
+
 
 void Application::set_parameters ()
 {
@@ -1023,30 +1133,56 @@ void Application::set_parameters ()
       midi_channel = (uint8_t)(data_steps & 0x000F);
       if (old_midi_channel != midi_channel)
       {
-        // Send all note off to avoid stuck notes
+        // Send current note off, all note off and all sound off to overkill any stuck notes
+        midi_msg_send(old_midi_channel, 0x90, old_midi_note, 0);
         midi_msg_send(old_midi_channel, 0xB0, 0x7B, 0x00);
+        midi_msg_send(old_midi_channel, 0xB0, 0x78, 0x00);
         old_midi_channel = midi_channel;
       }
       break;
         
     case 3:
-      // Rod antenna mode
-      data_steps = data_pot_value >> 8;
+      // Note Lifecycle
+      data_steps = data_pot_value >> 7;
       switch (data_steps)
       {
       case 0:
+        flag_aftertouch_on = 0;
         flag_legato_on = 0;
         flag_pitch_bend_on = 0;
         break; 
       case 1:
+        flag_aftertouch_on = 0;
         flag_legato_on = 0;
         flag_pitch_bend_on = 1;
         break; 
       case 2:
+        flag_aftertouch_on = 0;
+        flag_legato_on = 1;
+        flag_pitch_bend_on = 0;
+        break; 
+      case 3:
+        flag_aftertouch_on = 0;
+        flag_legato_on = 1;
+        flag_pitch_bend_on = 1;
+        break;  
+      case 4:
+        flag_aftertouch_on = 1;
+        flag_legato_on = 0;
+        flag_pitch_bend_on = 0;
+        break; 
+      case 5:
+        flag_aftertouch_on = 1;
+        flag_legato_on = 0;
+        flag_pitch_bend_on = 1;
+        break; 
+      case 6:
+        flag_aftertouch_on = 1;
         flag_legato_on = 1;
         flag_pitch_bend_on = 0;
         break; 
       default:
+        flag_aftertouch_on = 1;
         flag_legato_on = 1;
         flag_pitch_bend_on = 1;
         break;  
@@ -1153,28 +1289,28 @@ void Application::set_parameters ()
       switch (data_steps)
       {
       case 0:
-        loop_midi_cc = 1; // Modulation
+        loop_midi_cc = 255; // None
         break; 
       case 1:
-        loop_midi_cc = 7; // Volume
+        loop_midi_cc = 1; // Modulation
         break; 
       case 2:
-        loop_midi_cc = 11; // Expression
+        loop_midi_cc = 2; // Breath
         break; 
       case 3:
-        loop_midi_cc = 71; // Resonnance
+        loop_midi_cc = 4; // Pedal
         break; 
       case 4:
-        loop_midi_cc = 74; // Cutoff (exists of both loop and rod)
+        loop_midi_cc = 7; // Volume
         break; 
       case 5:
-        loop_midi_cc = 91; // Reverb
+        loop_midi_cc = 11; // Expression
         break; 
       case 6:
-        loop_midi_cc = 93; // Chorus
+        loop_midi_cc = 71; // Resonnance
         break; 
       default:
-        loop_midi_cc = 95; // Phaser
+        loop_midi_cc = 74; // Cutoff (exists of both loop and rod)
         break; 
       }
       break;
@@ -1216,5 +1352,3 @@ void Application::set_parameters ()
     }
   }
 }
-
-

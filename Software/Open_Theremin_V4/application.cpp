@@ -10,7 +10,7 @@
 
 const AppMode AppModeValues[] = {MUTE, NORMAL};
 const int16_t PitchCalibrationTolerance = 15;
-const int16_t VolumeCalibrationTolerance = 21;
+const int16_t VolumeCalibrationTolerance = 100;
 const int16_t PitchFreqOffset = 700;
 const int16_t VolumeFreqOffset = 700;
 const int8_t HYST_VAL = 140;
@@ -66,6 +66,8 @@ static uint8_t loop_midi_cc = 7;
 static uint8_t rod_midi_cc = 255; 
 static uint8_t rod_midi_cc_lo = 255; 
 static uint32_t rod_cc_scale = 128;
+
+static uint32_t timer_obs_cal = 200000;
 
 // tweakable paramameters
 #define VELOCITY_SENS  11 // How easy it is to reach highest velocity (127). Something betwen 5 and 12.
@@ -170,7 +172,7 @@ unsigned long Application::GetPitchMeasurement()
   timer_overflow_counter = 0;
   TCCR1B = (1 << CS12) | (1 << CS11) | (1 << CS10);
 
-  delay(1000);
+  delay(100);
 
   TCCR1B = 0;
 
@@ -178,7 +180,7 @@ unsigned long Application::GetPitchMeasurement()
   unsigned long temp = 65536 * (unsigned long)timer_overflow_counter;
   frequency += temp;
 
-  return frequency;
+  return (10 * frequency);
 }
 
 unsigned long Application::GetVolumeMeasurement()
@@ -186,7 +188,7 @@ unsigned long Application::GetVolumeMeasurement()
   timer_overflow_counter = 0;
 
   TCNT0 = 0;
-  TCNT1 = 49911;
+  TCNT1 = 63973; //49911;
   TCCR0B = (1 << CS02) | (1 << CS01) | (1 << CS00); // //External clock source on T0 pin. Clock on rising edge.
   TIFR1 = (1 << TOV1);                              //Timer1 INT Flag Reg: Clear Timer Overflow Flag
 
@@ -198,7 +200,7 @@ unsigned long Application::GetVolumeMeasurement()
 
   frequency += temp * 256;
 
-  return frequency;
+  return (10 *  frequency);
 }
 
 AppMode Application::nextMode()
@@ -226,7 +228,7 @@ mloop: // Main loop avoiding the GCC "optimization"
 
   set_parameters ();
   
-  if (_state == PLAYING && HW_BUTTON_PRESSED)
+  if ((_state == PLAYING && HW_BUTTON_PRESSED) || (timer_obs_cal < 10))
   {
 
     resetTimer();
@@ -248,13 +250,13 @@ mloop: // Main loop avoiding the GCC "optimization"
     // playModeSettingSound();
   }
 
-  if (_state == CALIBRATING && HW_BUTTON_RELEASED)
+  if ((_state == CALIBRATING && HW_BUTTON_RELEASED) && (timer_obs_cal >= 10))
   {
 
     _state = PLAYING;
   };
 
-  if (_state == CALIBRATING && timerExpired(65000))
+  if ((_state == CALIBRATING && timerExpired(65000)) || (timer_obs_cal < 10))
   {
     // Send current note off, all note off and all sound off
     midi_msg_send(midi_channel, 0x90, old_midi_note, 0);
@@ -275,7 +277,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     playCalibratingCountdownSound();
     calibrate();
 
-    if ((volumePotValue < 8) && (pitchPotValue > 1015))
+    if ((volumePotValue < 8) && (pitchPotValue > 1015) && (timer_obs_cal >= 10))
     {
       save_parameters (); 
     }
@@ -287,6 +289,7 @@ mloop: // Main loop avoiding the GCC "optimization"
       ; // NOP
     _state = PLAYING;
     _midistate = MIDI_SILENT;
+    timer_obs_cal = 200000;
   };
 
 
@@ -409,6 +412,16 @@ mloop: // Main loop avoiding the GCC "optimization"
   {   
     midi_application ();
     midi_timer = 0; 
+
+    // update scupture mode autocalib temporisation
+    if (vPointerIncrement < 18)
+    {
+       timer_obs_cal -= 10;
+    }
+    else
+    {
+       timer_obs_cal -= 1;
+    }
   }
 
   goto mloop; // End of main loop

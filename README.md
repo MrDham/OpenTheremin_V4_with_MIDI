@@ -1,4 +1,7 @@
 # OPEN THEREMIN V4 
+# SCULPTURE MODE
+This version will auto calibate every 15 minutes if played and every 90 seconds if left alore
+
 # MIDI IMPLEMENTATION - V2.0
 
 Open Source Theremin Instrument

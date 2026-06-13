@@ -1,6 +1,6 @@
 # OPEN THEREMIN V4 
 # SCULPTURE MODE
-This version will auto calibate every 15 minutes if played and every 90 seconds if left alore
+This version will auto calibate every 15 minutes if played and every 90 seconds if left alone
 
 # MIDI IMPLEMENTATION - V2.0
 

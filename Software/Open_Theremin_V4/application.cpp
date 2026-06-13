@@ -274,7 +274,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     initialiseTimer();
     initialiseInterrupts();
 
-    playCalibratingCountdownSound();
+    //playCalibratingCountdownSound();
     calibrate();
 
     if ((volumePotValue < 8) && (pitchPotValue > 1015) && (timer_obs_cal >= 10))
@@ -445,8 +445,8 @@ void Application::calibrate()
     ; // NOP
   volCalibrationBase = vol;
 
-  EEPROM.put(4, pitchCalibrationBase);
-  EEPROM.put(8, volCalibrationBase);
+  //EEPROM.put(4, pitchCalibrationBase);
+  //EEPROM.put(8, volCalibrationBase);
 }
 
 void Application::calibrate_pitch()
@@ -516,7 +516,7 @@ void Application::calibrate_pitch()
   }
   delay(100);
 
-  EEPROM.put(0, pitchXn0);
+  //EEPROM.put(0, pitchXn0);
 }
 
 void Application::calibrate_volume()
@@ -577,7 +577,7 @@ void Application::calibrate_volume()
     l_iteration_volume ++;
   }
 
-  EEPROM.put(2, volumeXn0);
+  //EEPROM.put(2, volumeXn0);
 
   HW_LED1_ON;
   HW_LED2_OFF;

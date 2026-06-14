@@ -8,6 +8,14 @@
 #include "timer.h"
 #include "EEPROM.h"
 
+
+// Scupture mode parameters 
+#define CALIB_PERIOD_CLOSE 200000 //How often we calibrate when player is close to the theremin (Multiply by 0.45ms)
+#define RATIO_CALIB_FREQ_AWAY 10 // How we increase calibation frequency when player is away.  
+
+static int32_t timer_obs_cal = CALIB_PERIOD_CLOSE;
+
+
 const AppMode AppModeValues[] = {MUTE, NORMAL};
 const int16_t PitchCalibrationTolerance = 15;
 const int16_t VolumeCalibrationTolerance = 100;
@@ -67,7 +75,6 @@ static uint8_t rod_midi_cc = 255;
 static uint8_t rod_midi_cc_lo = 255; 
 static uint32_t rod_cc_scale = 128;
 
-static uint32_t timer_obs_cal = 200000;
 
 // tweakable paramameters
 #define VELOCITY_SENS  11 // How easy it is to reach highest velocity (127). Something betwen 5 and 12.
@@ -200,7 +207,7 @@ unsigned long Application::GetVolumeMeasurement()
 
   frequency += temp * 256;
 
-  return (10 *  frequency);
+  return (10 * frequency);
 }
 
 AppMode Application::nextMode()
@@ -228,7 +235,7 @@ mloop: // Main loop avoiding the GCC "optimization"
 
   set_parameters ();
   
-  if ((_state == PLAYING && HW_BUTTON_PRESSED) || (timer_obs_cal < 10))
+  if ((_state == PLAYING && HW_BUTTON_PRESSED) || (timer_obs_cal < 0))
   {
 
     resetTimer();
@@ -250,13 +257,13 @@ mloop: // Main loop avoiding the GCC "optimization"
     // playModeSettingSound();
   }
 
-  if ((_state == CALIBRATING && HW_BUTTON_RELEASED) && (timer_obs_cal >= 10))
+  if ((_state == CALIBRATING && HW_BUTTON_RELEASED) && (timer_obs_cal >= 0))
   {
 
     _state = PLAYING;
   };
 
-  if ((_state == CALIBRATING && timerExpired(65000)) || (timer_obs_cal < 10))
+  if ((_state == CALIBRATING && timerExpired(65000)) || (timer_obs_cal < 0))
   {
     // Send current note off, all note off and all sound off
     midi_msg_send(midi_channel, 0x90, old_midi_note, 0);
@@ -277,7 +284,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     playCalibratingCountdownSound();
     calibrate();
 
-    if ((volumePotValue < 8) && (pitchPotValue > 1015) && (timer_obs_cal >= 10))
+    if ((volumePotValue < 8) && (pitchPotValue > 1015) && (timer_obs_cal >= 0))
     {
       save_parameters (); 
     }
@@ -289,7 +296,7 @@ mloop: // Main loop avoiding the GCC "optimization"
       ; // NOP
     _state = PLAYING;
     _midistate = MIDI_SILENT;
-    timer_obs_cal = 200000;
+    timer_obs_cal = CALIB_PERIOD_CLOSE;
   };
 
 
@@ -416,7 +423,7 @@ mloop: // Main loop avoiding the GCC "optimization"
     // update scupture mode autocalib temporisation
     if (vPointerIncrement < 18)
     {
-       timer_obs_cal -= 10;
+       timer_obs_cal -= RATIO_CALIB_FREQ_AWAY;
     }
     else
     {
@@ -673,15 +680,15 @@ void Application::playNote(float hz, uint16_t milliseconds = 500, uint8_t volume
 
 void Application::playStartupSound()
 {
-  playNote(MIDDLE_C * 4, 150, 25);
-  playNote(MIDDLE_C * 2, 150, 25);
-  playNote(MIDDLE_C, 150, 25);
+  playNote(MIDDLE_C * 4, 150, 0);
+  playNote(MIDDLE_C * 2, 150, 0);
+  playNote(MIDDLE_C, 150, 0);
 }
 
 void Application::playCalibratingCountdownSound()
 {
-  playNote(MIDDLE_C * 2, 150, 25);
-  playNote(MIDDLE_C * 2, 150, 25);
+  playNote(MIDDLE_C * 2, 150, 0);
+  playNote(MIDDLE_C * 2, 150, 0);
 }
 
 void Application::playModeSettingSound()
@@ -705,8 +712,8 @@ void Application::delay_NOP(unsigned long time)
 void Application::midi_setup() 
 {
   // Set MIDI baud rate:
-  //Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
-  Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
+  Serial.begin(115200); // Baudrate for midi to serial. Use a serial to midi router https://github.com/projectgus/hairless-midiserial 
+  //Serial.begin(31250); // Baudrate for real midi. Use din connection https://github.com/MrDham/OpenTheremin_V4_with_MIDI/blob/main/MIDI_DIN_TO_OTV4.jpg or HIDUINO https://github.com/ddiakopoulos/hiduino
       
   _midistate = MIDI_SILENT; 
 }

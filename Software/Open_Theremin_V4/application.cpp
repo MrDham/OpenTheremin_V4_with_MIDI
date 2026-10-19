@@ -8,15 +8,38 @@
 #include "timer.h"
 #include "EEPROM.h"
 
+// Accelerate calibration.
+// In some electromagnetic variable environment (e.g. a very noodling eurorack) you might be calibrating often and maybe want it done fast.
+// Uncommenting the following line will have following consequences:
+//    Accelerate each calibration step 10 times for pitch and 5 times for volume. 
+//    Extend tolerance on volume calibration. 
+//    EEPROM saving of calibration values will be performed only once in a session  
+//#define _FAST_CALL
+
+// Reduce output impedance of gate. 
+//Uncomment only if you have put a minimum 1K resistor between output of the Atmega328p and the jack connector 
+//#define _GATE_UNPULLED
+
+
 const AppMode AppModeValues[] = {MUTE, NORMAL};
 const int16_t PitchCalibrationTolerance = 15;
+#ifndef _FAST_CALL
 const int16_t VolumeCalibrationTolerance = 21;
+#endif 
+#ifdef _FAST_CALL
+const int16_t VolumeCalibrationTolerance = 100;
+#endif 
 const int16_t PitchFreqOffset = 700;
 const int16_t VolumeFreqOffset = 700;
 const int8_t HYST_VAL = 140;
 
 const uint16_t EEPROM_MAGIC_NUMBER = 0x5555;
 const uint16_t EEPROM_VERSION_NUMBER = 1;
+
+#ifdef _FAST_CALL
+static int16_t ever_calibrated = 0;
+#endif 
+
 
 static int32_t pitchCalibrationBase = 0;
 static int32_t pitchCalibrationBaseFreq = 0;
@@ -170,7 +193,13 @@ unsigned long Application::GetPitchMeasurement()
   timer_overflow_counter = 0;
   TCCR1B = (1 << CS12) | (1 << CS11) | (1 << CS10);
 
+#ifndef _FAST_CALL
   delay(1000);
+#endif 
+#ifdef _FAST_CALL
+  delay(100);
+#endif 
+
 
   TCCR1B = 0;
 
@@ -178,7 +207,12 @@ unsigned long Application::GetPitchMeasurement()
   unsigned long temp = 65536 * (unsigned long)timer_overflow_counter;
   frequency += temp;
 
+#ifndef _FAST_CALL
   return frequency;
+#endif 
+#ifdef _FAST_CALL
+  return (10 * frequency);
+#endif 
 }
 
 unsigned long Application::GetVolumeMeasurement()
@@ -186,7 +220,12 @@ unsigned long Application::GetVolumeMeasurement()
   timer_overflow_counter = 0;
 
   TCNT0 = 0;
+#ifndef _FAST_CALL
   TCNT1 = 49911;
+#endif 
+#ifdef _FAST_CALL
+  TCNT1 = 62411; 
+#endif 
   TCCR0B = (1 << CS02) | (1 << CS01) | (1 << CS00); // //External clock source on T0 pin. Clock on rising edge.
   TIFR1 = (1 << TOV1);                              //Timer1 INT Flag Reg: Clear Timer Overflow Flag
 
@@ -198,7 +237,12 @@ unsigned long Application::GetVolumeMeasurement()
 
   frequency += temp * 256;
 
+#ifndef _FAST_CALL
   return frequency;
+#endif 
+#ifdef _FAST_CALL
+  return (5 * frequency);
+#endif 
 }
 
 AppMode Application::nextMode()
@@ -275,6 +319,10 @@ mloop: // Main loop avoiding the GCC "optimization"
     playCalibratingCountdownSound();
     calibrate();
 
+#ifdef _FAST_CALL
+    ever_calibrated = 1;
+#endif 
+    
     if ((volumePotValue < 8) && (pitchPotValue > 1015))
     {
       save_parameters (); 
@@ -328,7 +376,7 @@ mloop: // Main loop avoiding the GCC "optimization"
 //          pitchCV = (tmpOct + tmpLog) - 48;
 //          pitchCV = max(pitchCV, 0);        // 1V/Oct for Moog & Roland
 // ***          
-          if (log_freq >= 37104) // 37104 = log2U16(512) + 48*4096/819
+          if (log_freq >= 37104) // 37104 = log2U16(512) + 48*4096/819 -> 48 sounds like a magical nb. Why not referencing to closest C id 37275 = log2U16(C3 * 4 [261.626] * HZ_ADDVAL_FACTOR [2.09785])?
           {
             pitchCV = (int16_t)((819 * (log_freq - 37104)) >> 12); 
           }
@@ -385,18 +433,29 @@ mloop: // Main loop avoiding the GCC "optimization"
     if (!gate_p && (tmpVolume >= GATE_ON))
     {
       gate_p = true;
+#ifndef _GATE_UNPULLED
       // pull the gate up to sense, first (to prevent short-circuiting the IO pin:
       GATE_PULLUP;
       if (GATE_SENSE)
       { // if it goes up, drive the gate full high:
         GATE_DRIVE_HIGH;
       }
+#endif
+#ifdef _GATE_UNPULLED
+      GATE_UNPULLED_HIGH;
+#endif
     }
     else if (gate_p && (tmpVolume <= GATE_OFF))
     {
       gate_p = false;
+#ifndef _GATE_UNPULLED
       // drive the gate low:
       GATE_DRIVE_LOW;
+#endif
+#ifdef _GATE_UNPULLED
+      GATE_UNPULLED_LOW;
+#endif
+
     }
 
     volumeValueAvailable = false;
@@ -432,8 +491,16 @@ void Application::calibrate()
     ; // NOP
   volCalibrationBase = vol;
 
+#ifdef _FAST_CALL
+if (ever_calibrated == 0)
+{
+#endif 
   EEPROM.put(4, pitchCalibrationBase);
   EEPROM.put(8, volCalibrationBase);
+#ifdef _FAST_CALL
+}
+#endif 
+
 }
 
 void Application::calibrate_pitch()
@@ -502,8 +569,14 @@ void Application::calibrate_pitch()
     l_iteration_pitch ++;
   }
   delay(100);
-
+#ifdef _FAST_CALL
+if (ever_calibrated == 0)
+{
+#endif 
   EEPROM.put(0, pitchXn0);
+#ifdef _FAST_CALL
+}
+#endif 
 }
 
 void Application::calibrate_volume()
@@ -563,8 +636,15 @@ void Application::calibrate_volume()
 
     l_iteration_volume ++;
   }
-
+#ifdef _FAST_CALL
+if (ever_calibrated == 0)
+{
+#endif 
   EEPROM.put(2, volumeXn0);
+#ifdef _FAST_CALL
+}
+#endif 
+
 
   HW_LED1_ON;
   HW_LED2_OFF;

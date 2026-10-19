@@ -20,4 +20,8 @@
 #define GATE_DRIVE_HIGH     (DDRC |= (1<<PORTC2))
 #define GATE_DRIVE_LOW      (PORTC &= ~(1<<PORTC2)); (DDRC |= (1<<PORTC2))
 
+#define GATE_UNPULLED_HIGH     (DDRC |= (1<<PORTC2)); (PORTC |= (1<<PORTC2))
+#define GATE_UNPULLED_LOW      (DDRC |= (1<<PORTC2)); (PORTC &= ~(1<<PORTC2))
+
+
 #endif // _HW_H
